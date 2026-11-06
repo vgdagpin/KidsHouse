@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playhouse Build Guide</title>
+<meta name="description" content="Step-by-step plan for building a 120 x 120 cm wooden kids playhouse with a front porch, counter window and gable roof.">
+<style>
+  :root{
+    --bg:#f6f1e7; --surface:#ffffff; --ink:#1f2430; --muted:#5b6170; --line:#e3dccb;
+    --accent:#d6480a; --accent-ink:#ffffff; --navy:#102a6e; --navy-soft:#e8edf9;
+    --ok:#2e7d32; --warn-bg:#fff4e5; --warn-line:#f0b464; --code:#f0ebe0;
+    --radius:14px; --shadow:0 2px 10px rgba(20,20,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15171c; --surface:#1e2128; --ink:#ecebe6; --muted:#a9adb8; --line:#2f333d;
+      --accent:#ff7a3d; --accent-ink:#1a1a1a; --navy:#9db4ff; --navy-soft:#242b3f;
+      --ok:#6fcf79; --warn-bg:#3a2d1a; --warn-line:#a9772f; --code:#262a33;
+      --shadow:0 2px 10px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15171c; --surface:#1e2128; --ink:#ecebe6; --muted:#a9adb8; --line:#2f333d;
+    --accent:#ff7a3d; --accent-ink:#1a1a1a; --navy:#9db4ff; --navy-soft:#242b3f;
+    --ok:#6fcf79; --warn-bg:#3a2d1a; --warn-line:#a9772f; --code:#262a33;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  a{color:var(--navy)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 16px 64px}
+  header.hero{padding:40px 0 20px}
+  header.hero h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 8px;line-height:1.15}
+  header.hero p.lead{color:var(--muted);margin:0 0 18px;max-width:64ch}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+  .fact b{display:block;font-size:1.25rem;color:var(--accent)}
+  .fact span{color:var(--muted);font-size:.9rem}
+  figure{margin:20px 0}
+  figure img{width:100%;height:auto;border-radius:var(--radius);border:1px solid var(--line);display:block}
+  figcaption{color:var(--muted);font-size:.9rem;margin-top:8px}
+  nav.toc{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px;margin:0 -16px;overflow-x:auto;white-space:nowrap}
+  nav.toc a{display:inline-block;margin-right:14px;font-size:.9rem;text-decoration:none;color:var(--muted)}
+  nav.toc a:hover{color:var(--ink)}
+  .progress{display:flex;align-items:center;gap:12px;margin:18px 0 6px;font-size:.9rem;color:var(--muted)}
+  .bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+  section{margin-top:40px}
+  h2{font-size:1.5rem;margin:0 0 10px;scroll-margin-top:60px}
+  h3{font-size:1.1rem;margin:22px 0 8px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;font-size:.95rem;margin:10px 0}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em}
+  td.num{white-space:nowrap}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:14px 0;box-shadow:var(--shadow)}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  .step h3{margin:6px 0 6px}
+  .step .meta{color:var(--muted);font-size:.85rem;margin-bottom:8px}
+  .step ol{padding-left:20px;margin:8px 0}
+  .step li{margin:5px 0}
+  .step label.done{display:inline-flex;gap:8px;align-items:center;margin-top:10px;font-size:.9rem;color:var(--muted);cursor:pointer}
+  .step.is-done{border-color:var(--ok)}
+  .step.is-done .n{background:var(--ok);color:#fff}
+  .tip{background:var(--navy-soft);border-left:4px solid var(--navy);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:.95rem}
+  .warn{background:var(--warn-bg);border-left:4px solid var(--warn-line);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:.95rem}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:700px){.two{grid-template-columns:1fr}.step{grid-template-columns:36px 1fr;padding:14px}.step .n{width:32px;height:32px;font-size:1rem}}
+  ul.plain{padding-left:20px;margin:6px 0}
+  ul.plain li{margin:4px 0}
+  footer{margin-top:48px;color:var(--muted);font-size:.85rem}
+
+  /* ---- step diagrams ---- */
+  :root{
+    --d-wood:#e7cfa3; --d-wood-line:#8a6a3c; --d-ply:#f1e2c2; --d-new:#f6a56f; --d-new-line:#b8400a;
+    --d-new2:#f9c79e; --d-ghost:#9aa0ab; --d-cut:#ffffff; --d-paver:#c9c4ba; --d-paver-line:#8f897e;
+    --d-dim:#102a6e; --d-pill:#ffffff; --d-note:#3d4352; --d-metal:#5f6b7a; --d-felt:#2f3440; --d-panel:#faf7f0;
+    --d-trim:#ffffff; --d-trim-line:#b9b6ae; --d-glass:#4a3b2c; --d-grass:#8fbf6a;
+    --d-trim-side:#e6e3dc; --d-wall-side:#e2c38e; --d-wood-side:#d1b07a; --d-roof-top:#edd6a8; --d-roof-side:#d9b97f; --d-sky:#cfe6f5;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --d-wood:#6b5532; --d-wood-line:#c9a56d; --d-ply:#5a4a30; --d-new:#c4561c; --d-new-line:#ffb48a;
+      --d-new2:#9c4a1f; --d-ghost:#6c7280; --d-cut:#1e2128; --d-paver:#4a4844; --d-paver-line:#8a857b;
+      --d-dim:#9db4ff; --d-pill:#1e2128; --d-note:#c9ccd4; --d-metal:#aab4c2; --d-felt:#d0d4dc; --d-panel:#191b21;
+      --d-trim:#dcdcd6; --d-trim-line:#8d8a83; --d-glass:#1a1410; --d-grass:#3f6b2c;
+      --d-trim-side:#b4b2ab; --d-wall-side:#4c3e27; --d-wood-side:#55442a; --d-roof-top:#7a6340; --d-roof-side:#5e4b30; --d-sky:#2c4a63;
+    }
+  }
+  :root[data-theme="dark"]{
+    --d-wood:#6b5532; --d-wood-line:#c9a56d; --d-ply:#5a4a30; --d-new:#c4561c; --d-new-line:#ffb48a;
+    --d-new2:#9c4a1f; --d-ghost:#6c7280; --d-cut:#1e2128; --d-paver:#4a4844; --d-paver-line:#8a857b;
+    --d-dim:#9db4ff; --d-pill:#1e2128; --d-note:#c9ccd4; --d-metal:#aab4c2; --d-felt:#d0d4dc; --d-panel:#191b21;
+      --d-trim:#dcdcd6; --d-trim-line:#8d8a83; --d-glass:#1a1410; --d-grass:#3f6b2c;
+      --d-trim-side:#b4b2ab; --d-wall-side:#4c3e27; --d-wood-side:#55442a; --d-roof-top:#7a6340; --d-roof-side:#5e4b30; --d-sky:#2c4a63;
+  }
+  .jump{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+  .jump a{background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:.9rem;text-decoration:none;color:var(--ink)}
+  .jump a:hover{border-color:var(--accent)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted);margin:4px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{display:inline-block;width:18px;height:12px;border-radius:2px;border:1.5px solid}
+  .legend .l-new{background:var(--d-new);border-color:var(--d-new-line)}
+  .legend .l-old{background:var(--d-wood);border-color:var(--d-wood-line)}
+  .legend .l-cut{background:var(--d-cut);border:1.5px dashed var(--d-ghost)}
+  .legend .l-dim{border:none;height:2px;background:var(--d-dim);width:22px}
+  .sub{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start;border-top:1px dashed var(--line);padding-top:16px;margin-top:16px}
+  .sub:first-of-type{border-top:none;padding-top:4px;margin-top:6px}
+  .sub figure{margin:0;background:var(--d-panel);border:1px solid var(--line);border-radius:10px;padding:8px}
+  .sub figcaption{margin:6px 4px 0;font-size:.82rem}
+  .sub h4{margin:2px 0 6px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .sub h4 span{background:var(--navy-soft);color:var(--navy);border-radius:6px;padding:1px 8px;font-size:.85rem}
+  .sub ol{margin:4px 0}
+  .views{margin:20px 0}
+  .view-in{background:var(--d-panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
+  .view-pair{display:grid;grid-template-columns:1fr;gap:20px;margin-top:20px}
+  .view-pair .view-in{max-width:720px}
+  .view-pair figure,.views figure{margin:0}
+  .views .view-main{margin:0}
+  @media (max-width:700px){.view-pair{grid-template-columns:1fr}}
+  svg.dg .trimface{fill:var(--d-trim);stroke:var(--d-trim-line);stroke-width:.8}
+  svg.dg .trimfaceside{fill:var(--d-trim-side);stroke:var(--d-trim-line);stroke-width:.8}
+  svg.dg .wallf{fill:var(--d-ply);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .walls{fill:var(--d-wall-side);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .woodside{fill:var(--d-wood-side);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .deck{fill:var(--d-wood);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .rooft{fill:var(--d-roof-top);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .roofr{fill:var(--d-roof-side);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .shadow{fill:var(--d-felt);opacity:.12}
+  svg.dg .shade{fill:var(--d-felt);opacity:.18}
+  svg.dg .outside{fill:var(--d-sky)}
+  svg.dg .grassf{fill:var(--d-grass)}
+  .sub-solo-in{background:var(--d-panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;max-width:620px}
+  @media (max-width:760px){.sub{grid-template-columns:1fr}}
+  svg.dg{display:block;width:100%;height:auto;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  svg.dg .wood{fill:var(--d-wood);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .ply{fill:var(--d-ply);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .new{fill:var(--d-new);stroke:var(--d-new-line);stroke-width:1.2}
+  svg.dg .new2{fill:var(--d-new2);stroke:var(--d-new-line);stroke-width:1.2}
+  svg.dg .newply{fill:var(--d-new2);stroke:var(--d-new-line);stroke-width:1.5}
+  svg.dg .ghost{fill:none;stroke:var(--d-ghost);stroke-width:1;stroke-dasharray:4 3}
+  svg.dg .cut{fill:var(--d-cut);stroke:var(--d-ghost);stroke-width:1;stroke-dasharray:4 3}
+  svg.dg .cutline{stroke:var(--accent);stroke-width:2;stroke-dasharray:5 3}
+  svg.dg .pencil{stroke:var(--d-dim);stroke-width:2;stroke-dasharray:8 4}
+  svg.dg .paver{fill:var(--d-paver);stroke:var(--d-paver-line);stroke-width:1}
+  svg.dg .board{fill:var(--d-wood);stroke:var(--d-wood-line);stroke-width:1}
+  svg.dg .screw{fill:var(--d-felt)}
+  svg.dg .screwline{stroke:var(--d-felt);stroke-width:2;stroke-dasharray:3 2}
+  svg.dg .metal{fill:none;stroke:var(--d-metal);stroke-width:3;stroke-linecap:square}
+  svg.dg .plumb{stroke:var(--d-dim);stroke-width:1.2;stroke-dasharray:2 3}
+  svg.dg .brace{stroke:var(--d-wood-line);stroke-width:5;stroke-dasharray:10 4;opacity:.8}
+  svg.dg .dim{stroke:var(--d-dim);stroke-width:1.3;fill:none}
+  svg.dg .dimarc{stroke:var(--d-dim);stroke-width:1.3;fill:none}
+  svg.dg .dimm{fill:var(--d-dim)}
+  svg.dg .ext{stroke:var(--d-dim);stroke-width:.8;stroke-dasharray:3 2;opacity:.7}
+  svg.dg .pill{fill:var(--d-pill);stroke:var(--d-dim);stroke-width:.8}
+  svg.dg .dimt{fill:var(--d-dim);font-weight:700}
+  svg.dg .cap{fill:var(--d-note)}
+  svg.dg .capb{fill:var(--d-note);font-weight:700}
+  svg.dg .big{fill:var(--d-note);font-weight:800;letter-spacing:.06em}
+  svg.dg .note{fill:var(--d-note)}
+  svg.dg .onnew{fill:var(--d-note);font-weight:600}
+  svg.dg .lead{stroke:var(--d-note);stroke-width:.8}
+  svg.dg .leaddot{fill:var(--d-note)}
+  svg.dg .numc{fill:var(--accent)}
+  svg.dg .numt{fill:var(--accent-ink);font-weight:700}
+  svg.dg .inset{fill:var(--surface);stroke:var(--line);stroke-width:1}
+  svg.dg .felt{fill:none;stroke:var(--d-felt);stroke-width:2.5}
+  svg.dg .feltlap{stroke:var(--d-felt);stroke-width:1.5}
+  svg.dg .trim{fill:var(--d-trim);stroke:var(--d-trim-line);stroke-width:1}
+  svg.dg .roof{fill:var(--d-wood);stroke:var(--d-wood-line);stroke-width:1.2}
+  svg.dg .board{stroke:var(--d-wood-line);stroke-width:.6;opacity:.6}
+  svg.dg .glass{fill:var(--d-glass)}
+  svg.dg .knob{fill:var(--d-felt)}
+  svg.dg .lamp{fill:#ffd27a;stroke:var(--d-felt);stroke-width:1.5}
+  svg.dg .grass{fill:var(--d-grass)}
+  svg.dg .feltcap{fill:none;stroke:var(--d-felt);stroke-width:3;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Kids Playhouse Build Guide</h1>
+  <p class="lead">A weekend-by-weekend plan for a 120 × 120 cm wooden playhouse: an enclosed room with a serving window and counter, a railed front porch, and a gable roof. All measurements are metric and match the annotated drawing.</p>
+  <div class="facts">
+    <div class="fact"><b>120 × 120 cm</b><span>Footprint (deck)</span></div>
+    <div class="fact"><b>120 × 80 cm</b><span>Enclosed room (W × D)</span></div>
+    <div class="fact"><b>120 × 40 cm</b><span>Porch (W × D)</span></div>
+    <div class="fact"><b>90 / 120 cm</b><span>Wall height / ridge height</span></div>
+    <div class="fact"><b>2 weekends</b><span>Typical build time, 1 to 2 people</span></div>
+  </div>
+  <div class="views">
+    <figure class="view-main">
+      <div class="view-in"><!-- diagram:iso --><svg class="dg" viewBox="-33 -83 743 480" role="img" aria-label="Overview of the playhouse from the front left: room 120 by 80 cm, porch 120 by 40 cm, walls 90 cm, apex 120 cm, serving window and counter on the left side wall"><defs><marker id="iso-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><polygon points="296.0,378.6 664.0,293.9 388.1,179.7 8.6,267.0" class="shadow"/><polygon points="330.0,330.0 606.0,266.5 371.4,175.4 95.4,238.9" class="deck"/><polygon points="330.0,353.4 95.4,262.3 95.4,238.9 330.0,330.0" class="woodside"/><polygon points="330.0,353.4 606.0,289.9 606.0,266.5 330.0,330.0" class="wood"/><polygon points="251.8,299.6 527.8,236.2 527.8,39.5 251.8,103.0" class="wallf"/><line x1="251.8" y1="280.0" x2="527.8" y2="216.5" class="board"/><line x1="251.8" y1="260.3" x2="527.8" y2="196.8" class="board"/><line x1="251.8" y1="240.6" x2="527.8" y2="177.2" class="board"/><line x1="251.8" y1="221.0" x2="527.8" y2="157.5" class="board"/><line x1="251.8" y1="201.3" x2="527.8" y2="137.8" class="board"/><line x1="251.8" y1="181.7" x2="527.8" y2="118.2" class="board"/><line x1="251.8" y1="162.0" x2="527.8" y2="98.5" class="board"/><line x1="251.8" y1="142.3" x2="527.8" y2="78.8" class="board"/><line x1="251.8" y1="122.7" x2="527.8" y2="59.2" class="board"/><polygon points="333.4,280.9 446.1,254.9 446.1,74.7 333.4,100.6" class="trimface"/><polygon points="343.8,276.3 435.8,255.1 435.8,91.3 343.8,112.4" class="wood"/><polygon points="356.4,187.1 386.4,180.2 386.4,149.6 356.4,156.5" class="glass"/><polygon points="356.4,152.1 386.4,145.2 386.4,114.7 356.4,121.5" class="glass"/><polygon points="393.2,178.6 423.1,171.7 423.1,141.1 393.2,148.0" class="glass"/><polygon points="393.2,143.7 423.1,136.8 423.1,106.2 393.2,113.1" class="glass"/><circle cx="422.0" cy="181.8" r="2.6" class="knob"/><polygon points="457.6,116.8 469.1,114.2 469.1,92.3 457.6,95.0" class="lamp"/><polygon points="251.8,299.6 95.4,238.9 95.4,42.3 251.8,103.0" class="walls"/><line x1="251.8" y1="280.0" x2="95.4" y2="219.3" class="board"/><line x1="251.8" y1="260.3" x2="95.4" y2="199.6" class="board"/><line x1="251.8" y1="240.6" x2="95.4" y2="179.9" class="board"/><line x1="251.8" y1="221.0" x2="95.4" y2="160.3" class="board"/><line x1="251.8" y1="201.3" x2="95.4" y2="140.6" class="board"/><line x1="251.8" y1="181.7" x2="95.4" y2="120.9" class="board"/><line x1="251.8" y1="162.0" x2="95.4" y2="101.3" class="board"/><line x1="251.8" y1="142.3" x2="95.4" y2="81.6" class="board"/><line x1="251.8" y1="122.7" x2="95.4" y2="61.9" class="board"/><polygon points="223.5,175.0 123.7,136.3 123.7,53.3 223.5,92.0" class="trimfaceside"/><polygon points="217.6,166.2 129.6,132.0 129.6,58.8 217.6,93.0" class="glass"/><polygon points="208.8,193.4 208.8,166.7 183.5,172.5" class="wood"/><polygon points="138.4,166.0 138.4,139.4 113.1,145.2" class="wood"/><polygon points="186.0,179.5 227.4,170.0 119.8,128.2 78.4,137.8" class="deck"/><polygon points="186.0,183.4 78.4,141.7 78.4,137.8 186.0,179.5" class="woodside"/><polygon points="186.0,183.4 227.4,173.9 227.4,170.0 186.0,179.5" class="wood"/><polygon points="316.3,147.5 251.8,122.4 251.8,103.0 316.3,128.0" class="trimfaceside"/><polygon points="316.3,147.5 325.1,145.5 325.1,126.0 316.3,128.0" class="trimface"/><polygon points="583.6,252.3 519.1,227.2 519.1,218.9 583.6,244.0" class="trimfaceside"/><polygon points="583.6,252.3 592.3,250.3 592.3,242.0 583.6,244.0" class="trimface"/><polygon points="583.6,244.0 592.3,242.0 527.8,216.9 519.1,218.9" class="trimface"/><polygon points="583.6,162.3 519.1,137.2 519.1,128.9 583.6,154.0" class="trimfaceside"/><polygon points="583.6,162.3 592.3,160.3 592.3,152.0 583.6,154.0" class="trimface"/><polygon points="583.6,154.0 592.3,152.0 527.8,126.9 519.1,128.9" class="trimface"/><polygon points="537.0,225.9 529.6,223.0 529.6,141.3 537.0,144.2" class="trimfaceside"/><polygon points="537.0,225.9 545.8,223.9 545.8,142.2 537.0,144.2" class="trimface"/><polygon points="555.0,232.9 547.6,230.0 547.6,148.3 555.0,151.2" class="trimfaceside"/><polygon points="555.0,232.9 563.8,230.9 563.8,149.2 555.0,151.2" class="trimface"/><polygon points="573.0,239.9 565.6,237.0 565.6,155.3 573.0,158.2" class="trimfaceside"/><polygon points="573.0,239.9 581.8,237.9 581.8,156.2 573.0,158.2" class="trimface"/><polygon points="316.3,313.8 251.8,288.7 251.8,280.4 316.3,305.5" class="trimfaceside"/><polygon points="316.3,313.8 325.1,311.8 325.1,303.4 316.3,305.5" class="trimface"/><polygon points="316.3,305.5 325.1,303.4 260.5,278.4 251.8,280.4" class="trimface"/><polygon points="316.3,223.7 251.8,198.7 251.8,190.4 316.3,215.4" class="trimfaceside"/><polygon points="316.3,223.7 325.1,221.7 325.1,213.4 316.3,215.4" class="trimface"/><polygon points="316.3,215.4 325.1,213.4 260.5,188.4 251.8,190.4" class="trimface"/><polygon points="269.8,287.4 262.4,284.5 262.4,202.8 269.8,205.7" class="trimfaceside"/><polygon points="269.8,287.4 278.5,285.4 278.5,203.7 269.8,205.7" class="trimface"/><polygon points="287.8,294.4 280.3,291.5 280.3,209.8 287.8,212.7" class="trimfaceside"/><polygon points="287.8,294.4 296.5,292.4 296.5,210.6 287.8,212.7" class="trimface"/><polygon points="305.8,301.4 298.3,298.5 298.3,216.8 305.8,219.6" class="trimfaceside"/><polygon points="305.8,301.4 314.5,299.4 314.5,217.6 305.8,219.6" class="trimface"/><polygon points="589.9,270.2 576.2,264.9 576.2,68.3 589.9,73.6" class="trimfaceside"/><polygon points="589.9,270.2 606.0,266.5 606.0,69.9 589.9,73.6" class="trimface"/><polygon points="525.5,285.0 518.1,282.2 518.1,172.9 525.5,175.8" class="trimfaceside"/><polygon points="525.5,285.0 534.2,283.0 534.2,173.8 525.5,175.8" class="trimface"/><polygon points="346.1,315.4 401.8,302.6 401.8,294.3 346.1,307.1" class="trimface"/><polygon points="346.1,225.4 401.8,212.5 401.8,204.2 346.1,217.0" class="trimface"/><polygon points="358.8,304.1 351.4,301.3 351.4,219.5 358.8,222.4" class="trimfaceside"/><polygon points="358.8,304.1 367.6,302.1 367.6,220.4 358.8,222.4" class="trimface"/><polygon points="380.3,299.2 372.9,296.3 372.9,214.6 380.3,217.5" class="trimfaceside"/><polygon points="380.3,299.2 389.0,297.2 389.0,215.5 380.3,217.5" class="trimface"/><polygon points="534.2,272.1 589.9,259.3 589.9,251.0 534.2,263.8" class="trimface"/><polygon points="534.2,182.1 589.9,169.3 589.9,161.0 534.2,173.8" class="trimface"/><polygon points="547.0,260.9 539.5,258.0 539.5,176.3 547.0,179.2" class="trimfaceside"/><polygon points="547.0,260.9 555.7,258.9 555.7,177.1 547.0,179.2" class="trimface"/><polygon points="568.4,255.9 561.0,253.0 561.0,171.3 568.4,174.2" class="trimfaceside"/><polygon points="568.4,255.9 577.2,253.9 577.2,172.2 568.4,174.2" class="trimface"/><polygon points="401.8,313.5 394.3,310.6 394.3,201.4 401.8,204.2" class="trimfaceside"/><polygon points="401.8,313.5 410.5,311.5 410.5,202.2 401.8,204.2" class="trimface"/><polygon points="330.0,330.0 316.3,324.7 316.3,128.0 330.0,133.4" class="trimfaceside"/><polygon points="330.0,330.0 346.1,326.3 346.1,129.6 330.0,133.4" class="trimface"/><polygon points="330.0,152.8 606.0,89.3 606.0,69.9 330.0,133.4" class="trimface"/><polygon points="330.0,133.4 606.0,69.9 468.0,36.1" class="wallf"/><line x1="364.5" y1="109.0" x2="571.5" y2="61.4" class="board"/><line x1="399.0" y1="84.7" x2="537.0" y2="53.0" class="board"/><line x1="433.5" y1="60.4" x2="502.5" y2="44.5" class="board"/><polygon points="648.5,68.9 487.5,29.4 213.9,-76.8 374.9,-37.4" class="roofr"/><polygon points="326.6,143.0 487.5,29.4 213.9,-76.8 52.9,36.7" class="rooft"/><line x1="349.6" y1="126.7" x2="75.9" y2="20.5" class="board"/><line x1="372.6" y1="110.5" x2="98.9" y2="4.3" class="board"/><line x1="395.6" y1="94.3" x2="121.9" y2="-12.0" class="board"/><line x1="418.6" y1="78.1" x2="144.9" y2="-28.2" class="board"/><line x1="441.6" y1="61.9" x2="167.9" y2="-44.4" class="board"/><line x1="464.5" y1="45.7" x2="190.9" y2="-60.6" class="board"/><polygon points="326.6,157.2 487.5,43.7 487.5,29.4 326.6,143.0" class="roof"/><polygon points="487.5,43.7 648.5,83.1 648.5,68.9 487.5,29.4" class="roof"/><line x1="330.0" y1="353.4" x2="427.8" y2="391.3" class="ext"/><line x1="410.5" y1="334.9" x2="457.4" y2="353.1" class="ext"/><line x1="525.5" y1="308.4" x2="572.4" y2="326.6" class="ext"/><line x1="606.0" y1="289.9" x2="703.8" y2="327.8" class="ext"/><line x1="369.1" y1="368.6" x2="645.1" y2="305.1" class="dim"/><line x1="368.0" y1="363.7" x2="370.2" y2="373.4" class="dim"/><line x1="448.5" y1="345.2" x2="450.7" y2="354.9" class="dim"/><line x1="563.5" y1="318.7" x2="565.7" y2="328.5" class="dim"/><line x1="644.0" y1="300.2" x2="646.2" y2="310.0" class="dim"/><rect x="395.8" y="340.8" width="19.2" height="15.0" rx="3" class="pill"/><text x="405.4" y="351.9" text-anchor="middle" class="dimt" font-size="10">35</text><rect x="471.1" y="318.3" width="64.0" height="15.0" rx="3" class="pill"/><text x="503.1" y="329.4" text-anchor="middle" class="dimt" font-size="10">50 opening</text><rect x="591.2" y="295.8" width="19.2" height="15.0" rx="3" class="pill"/><text x="600.8" y="306.9" text-anchor="middle" class="dimt" font-size="10">35</text><line x1="419.9" y1="388.3" x2="695.9" y2="324.8" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="524.3" y="362.1" width="75.2" height="15.0" rx="3" class="pill"/><text x="561.9" y="373.2" text-anchor="middle" class="dimt" font-size="10">120 cm width</text><line x1="330.0" y1="353.4" x2="247.2" y2="372.4" class="ext"/><line x1="251.8" y1="323.0" x2="182.8" y2="338.9" class="ext"/><line x1="95.4" y1="262.3" x2="12.6" y2="281.3" class="ext"/><line x1="256.4" y1="370.3" x2="178.2" y2="339.9" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="176.9" y="357.6" width="52.8" height="15.0" rx="3" class="pill"/><text x="203.3" y="368.7" text-anchor="middle" class="dimt" font-size="10">40 porch</text><line x1="178.2" y1="339.9" x2="21.8" y2="279.2" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="50.0" y="312.1" width="64.0" height="15.0" rx="3" class="pill"/><text x="82.0" y="323.2" text-anchor="middle" class="dimt" font-size="10">80 cm room</text><line x1="95.4" y1="238.9" x2="43.7" y2="238.7" class="ext"/><line x1="213.9" y1="-62.6" x2="43.7" y2="-23.5" class="ext"/><line x1="43.7" y1="238.7" x2="43.7" y2="-23.5" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="-27.1" y="100.1" width="69.6" height="15.0" rx="3" class="pill"/><text x="7.7" y="111.2" text-anchor="middle" class="dimt" font-size="10">120 cm apex</text><line x1="606.0" y1="69.9" x2="633.6" y2="63.5" class="ext"/><line x1="606.0" y1="266.5" x2="633.6" y2="260.2" class="ext"/><line x1="629.0" y1="261.2" x2="629.0" y2="64.6" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="628.2" y="155.4" width="69.6" height="15.0" rx="3" class="pill"/><text x="663.0" y="166.5" text-anchor="middle" class="dimt" font-size="10">90 cm walls</text><line x1="606.0" y1="157.3" x2="623.0" y2="158.2" class="ext"/><line x1="623.0" y1="267.4" x2="623.0" y2="158.2" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="561.0" y="211.3" width="64.0" height="15.0" rx="3" class="pill"/><text x="593.0" y="222.4" text-anchor="middle" class="dimt" font-size="10">50 railing</text><line x1="397.3" y1="296.5" x2="397.3" y2="214.8" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="397.1" y="248.1" width="30.4" height="15.0" rx="3" class="pill"/><text x="412.3" y="259.2" text-anchor="middle" class="dimt" font-size="10">37.4</text><line x1="316.3" y1="215.4" x2="316.3" y2="198.0" class="ext"/><line x1="251.8" y1="190.4" x2="251.8" y2="172.9" class="ext"/><line x1="316.3" y1="202.3" x2="251.8" y2="177.3" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="216.5" y="178.3" width="75.2" height="15.0" rx="3" class="pill"/><text x="254.1" y="189.4" text-anchor="middle" class="dimt" font-size="10">33 side rail</text><line x1="96.3" y1="123.4" x2="96.3" y2="46.9" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="73.7" y="77.6" width="19.2" height="15.0" rx="3" class="pill"/><text x="83.3" y="88.7" text-anchor="middle" class="dimt" font-size="10">35</text><line x1="96.3" y1="243.5" x2="96.3" y2="123.4" class="dim" marker-start="url(#iso-m)" marker-end="url(#iso-m)"/><rect x="49.7" y="176.0" width="47.2" height="15.0" rx="3" class="pill"/><text x="73.3" y="187.1" text-anchor="middle" class="dimt" font-size="10">sill 55</text><rect x="352.2" y="216.7" width="75.2" height="15.0" rx="3" class="pill"/><text x="389.8" y="227.8" text-anchor="middle" class="dimt" font-size="10">door 40 × 75</text><rect x="122.5" y="176.5" width="92.0" height="15.0" rx="3" class="pill"/><text x="168.5" y="187.6" text-anchor="middle" class="dimt" font-size="10">counter 55 × 18</text></svg><!-- /diagram:iso --></div>
+      <figcaption>Overview from the front left. The room is 120 × 80 cm, the porch in front of it is 120 × 40 cm with railings on three sides, and the serving window and counter are on the left side wall.</figcaption>
+    </figure>
+    <div class="view-pair">
+      <figure>
+        <div class="view-in"><!-- diagram:front --><svg class="dg" viewBox="-67 17 612 443" role="img" aria-label="Front view drawn to the plan: porch pillars and railings in front of the door, window on the left side wall, counter seen end-on"><defs><marker id="front-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="4.0" y="361.2" width="480.0" height="7.2" class="grass"/><rect x="100.0" y="334.3" width="288.0" height="21.4" class="wood"/><rect x="100.0" y="330.0" width="288.0" height="4.3" class="ply"/><rect x="100.0" y="114.0" width="288.0" height="216.0" class="ply"/><line x1="100.0" y1="308.4" x2="388.0" y2="308.4" class="board"/><line x1="100.0" y1="286.8" x2="388.0" y2="286.8" class="board"/><line x1="100.0" y1="265.2" x2="388.0" y2="265.2" class="board"/><line x1="100.0" y1="243.6" x2="388.0" y2="243.6" class="board"/><line x1="100.0" y1="222.0" x2="388.0" y2="222.0" class="board"/><line x1="100.0" y1="200.4" x2="388.0" y2="200.4" class="board"/><line x1="100.0" y1="178.8" x2="388.0" y2="178.8" class="board"/><line x1="100.0" y1="157.2" x2="388.0" y2="157.2" class="board"/><line x1="100.0" y1="135.6" x2="388.0" y2="135.6" class="board"/><polygon points="100.0,114.0 388.0,114.0 244.0,42.0" class="ply"/><line x1="136.0" y1="96.0" x2="352.0" y2="96.0" class="board"/><line x1="172.0" y1="78.0" x2="316.0" y2="78.0" class="board"/><line x1="208.0" y1="60.0" x2="280.0" y2="60.0" class="board"/><rect x="185.2" y="132.0" width="117.6" height="198.0" class="trim"/><rect x="196.0" y="147.6" width="96.0" height="180.0" class="wood"/><rect x="209.2" y="199.2" width="31.2" height="33.6" class="glass"/><rect x="209.2" y="160.8" width="31.2" height="33.6" class="glass"/><rect x="247.6" y="199.2" width="31.2" height="33.6" class="glass"/><rect x="247.6" y="160.8" width="31.2" height="33.6" class="glass"/><circle cx="277.6" cy="243.6" r="4" class="knob"/><rect x="314.8" y="157.2" width="12.0" height="24.0" class="lamp"/><rect x="56.8" y="198.0" width="43.2" height="4.3" class="wood"/><polygon points="100.0,202.3 73.6,202.3 100.0,231.6" class="wood"/><rect x="100.0" y="114.0" width="16.8" height="216.0" class="trim"/><rect x="371.2" y="114.0" width="16.8" height="216.0" class="trim"/><rect x="100.0" y="114.0" width="288.0" height="21.4" class="trim"/><rect x="174.9" y="210.0" width="9.1" height="120.0" class="trim"/><rect x="304.0" y="210.0" width="9.1" height="120.0" class="trim"/><rect x="116.8" y="308.9" width="58.1" height="9.1" class="trim"/><rect x="116.8" y="210.0" width="58.1" height="9.1" class="trim"/><rect x="130.1" y="219.1" width="9.1" height="89.8" class="trim"/><rect x="152.5" y="219.1" width="9.1" height="89.8" class="trim"/><rect x="313.1" y="308.9" width="58.1" height="9.1" class="trim"/><rect x="313.1" y="210.0" width="58.1" height="9.1" class="trim"/><rect x="326.4" y="219.1" width="9.1" height="89.8" class="trim"/><rect x="348.8" y="219.1" width="9.1" height="89.8" class="trim"/><polygon points="76.0,126.0 244.0,42.0 244.0,26.4 76.0,110.4" class="roof"/><polygon points="244.0,42.0 412.0,126.0 412.0,110.4 244.0,26.4" class="roof"/><rect x="238.0" y="23.3" width="12.0" height="21.1" class="roof"/><text x="244.0" y="282.0" text-anchor="middle" class="capb" font-size="11">door 40 × 75</text><line x1="100.0" y1="356.4" x2="100.0" y2="391.6" class="ext"/><line x1="184.0" y1="356.4" x2="184.0" y2="391.6" class="ext"/><line x1="100.0" y1="387.6" x2="184.0" y2="387.6" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="131.8" y="390.1" width="20.3" height="16.0" rx="3" class="pill"/><text x="142.0" y="402.1" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="184.0" y1="356.4" x2="184.0" y2="391.6" class="ext"/><line x1="304.0" y1="356.4" x2="304.0" y2="391.6" class="ext"/><line x1="184.0" y1="387.6" x2="304.0" y2="387.6" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="200.0" y="390.1" width="88.1" height="16.0" rx="3" class="pill"/><text x="244.0" y="402.1" text-anchor="middle" class="dimt" font-size="11">50 cm opening</text><line x1="304.0" y1="356.4" x2="304.0" y2="391.6" class="ext"/><line x1="388.0" y1="356.4" x2="388.0" y2="391.6" class="ext"/><line x1="304.0" y1="387.6" x2="388.0" y2="387.6" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="335.8" y="390.1" width="20.3" height="16.0" rx="3" class="pill"/><text x="346.0" y="402.1" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="100.0" y1="402.0" x2="100.0" y2="439.6" class="ext"/><line x1="388.0" y1="402.0" x2="388.0" y2="439.6" class="ext"/><line x1="100.0" y1="435.6" x2="388.0" y2="435.6" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="203.0" y="438.1" width="81.9" height="16.0" rx="3" class="pill"/><text x="244.0" y="450.1" text-anchor="middle" class="dimt" font-size="11">120 cm width</text><line x1="392.8" y1="330.0" x2="444.8" y2="330.0" class="ext"/><line x1="248.8" y1="42.0" x2="444.8" y2="42.0" class="ext"/><line x1="440.8" y1="330.0" x2="440.8" y2="42.0" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="444.8" y="178.0" width="94.2" height="16.0" rx="3" class="pill"/><text x="491.9" y="190.0" text-anchor="middle" class="dimt" font-size="11">120 cm to apex</text><line x1="95.2" y1="330.0" x2="14.4" y2="330.0" class="ext"/><line x1="95.2" y1="114.0" x2="14.4" y2="114.0" class="ext"/><line x1="18.4" y1="330.0" x2="18.4" y2="114.0" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="-61.4" y="214.0" width="75.8" height="16.0" rx="3" class="pill"/><text x="-23.5" y="226.0" text-anchor="middle" class="dimt" font-size="11">90 cm walls</text><line x1="95.2" y1="330.0" x2="43.2" y2="330.0" class="ext"/><line x1="56.8" y1="198.0" x2="43.2" y2="198.0" class="ext"/><line x1="47.2" y1="330.0" x2="47.2" y2="198.0" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="37.6" y="256.5" width="19.2" height="15.0" rx="3" class="pill"/><text x="47.2" y="267.6" text-anchor="middle" class="dimt" font-size="10">55</text><text x="78.4" y="192.0" text-anchor="middle" class="cap" font-size="9">counter</text><line x1="365.9" y1="330.0" x2="406.4" y2="330.0" class="ext"/><line x1="392.8" y1="210.0" x2="406.4" y2="210.0" class="ext"/><line x1="402.4" y1="330.0" x2="402.4" y2="210.0" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="406.4" y="262.5" width="19.2" height="15.0" rx="3" class="pill"/><text x="416.0" y="273.6" text-anchor="middle" class="dimt" font-size="10">50</text><line x1="168.2" y1="308.9" x2="168.2" y2="219.1" class="dim" marker-start="url(#front-m)" marker-end="url(#front-m)"/><rect x="172.2" y="256.5" width="30.4" height="15.0" rx="3" class="pill"/><text x="187.4" y="267.6" text-anchor="middle" class="dimt" font-size="10">37.4</text></svg><!-- /diagram:front --></div>
+        <figcaption>Front view. The porch pillars and railings stand in front of the door. From the front you only see the end of the counter.</figcaption>
+      </figure>
+      <figure>
+        <div class="view-in"><!-- diagram:interior --><svg class="dg" viewBox="37 -24 446 575" role="img" aria-label="Interior view facing the serving window on the left side wall: door wall on the left, back wall with shelves on the right, roof sloping up to the ridge"><defs><marker id="interior-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><polygon points="138.4,406.3 381.6,406.3 477.1,544.9 42.9,544.9" class="deck"/><line x1="162.7" y1="406.3" x2="86.3" y2="544.9" class="board"/><line x1="199.2" y1="406.3" x2="151.4" y2="544.9" class="board"/><line x1="235.7" y1="406.3" x2="216.6" y2="544.9" class="board"/><line x1="272.2" y1="406.3" x2="281.7" y2="544.9" class="board"/><line x1="308.6" y1="406.3" x2="346.9" y2="544.9" class="board"/><line x1="345.1" y1="406.3" x2="412.0" y2="544.9" class="board"/><polygon points="138.4,132.7 381.6,132.7 420.0,-18.0 100.0,-18.0" class="roofr"/><polygon points="100.0,-18.0 420.0,-18.0 477.1,29.1 42.9,29.1" class="roofr"/><line x1="205.0" y1="132.7" x2="187.6" y2="-18.0" class="board"/><line x1="187.6" y1="-18.0" x2="161.7" y2="29.1" class="board"/><line x1="216.5" y1="132.7" x2="202.8" y2="-18.0" class="board"/><line x1="202.8" y1="-18.0" x2="182.4" y2="29.1" class="board"/><line x1="311.4" y1="132.7" x2="327.6" y2="-18.0" class="board"/><line x1="327.6" y1="-18.0" x2="351.7" y2="29.1" class="board"/><line x1="322.9" y1="132.7" x2="342.8" y2="-18.0" class="board"/><line x1="342.8" y1="-18.0" x2="372.4" y2="29.1" class="board"/><polygon points="138.4,406.3 381.6,406.3 381.6,132.7 138.4,132.7" class="wallf"/><line x1="138.4" y1="379.0" x2="381.6" y2="379.0" class="board"/><line x1="138.4" y1="351.6" x2="381.6" y2="351.6" class="board"/><line x1="138.4" y1="324.2" x2="381.6" y2="324.2" class="board"/><line x1="138.4" y1="296.9" x2="381.6" y2="296.9" class="board"/><line x1="138.4" y1="269.5" x2="381.6" y2="269.5" class="board"/><line x1="138.4" y1="242.2" x2="381.6" y2="242.2" class="board"/><line x1="138.4" y1="214.8" x2="381.6" y2="214.8" class="board"/><line x1="138.4" y1="187.4" x2="381.6" y2="187.4" class="board"/><line x1="138.4" y1="160.1" x2="381.6" y2="160.1" class="board"/><polygon points="182.5,248.2 337.5,248.2 337.5,132.7 182.5,132.7" class="trimface"/><polygon points="191.6,239.1 328.4,239.1 328.4,137.3 191.6,137.3" class="outside"/><polygon points="191.6,239.1 328.4,239.1 328.4,217.8 191.6,217.8" class="grassf"/><polygon points="182.5,239.1 337.5,239.1 338.8,239.3 181.2,239.3" class="trimfaceside"/><polygon points="381.6,406.3 477.1,544.9 477.1,29.1 420.0,-18.0 381.6,132.7" class="walls"/><line x1="381.6" y1="379.0" x2="477.1" y2="496.0" class="board"/><line x1="381.6" y1="351.6" x2="477.1" y2="447.1" class="board"/><line x1="381.6" y1="324.2" x2="477.1" y2="398.3" class="board"/><line x1="381.6" y1="296.9" x2="477.1" y2="349.4" class="board"/><line x1="381.6" y1="269.5" x2="477.1" y2="300.6" class="board"/><line x1="381.6" y1="242.2" x2="477.1" y2="251.7" class="board"/><line x1="381.6" y1="214.8" x2="477.1" y2="202.9" class="board"/><line x1="381.6" y1="187.4" x2="477.1" y2="154.0" class="board"/><line x1="381.6" y1="160.1" x2="477.1" y2="105.1" class="board"/><polygon points="332.4,324.1 353.8,352.0 447.7,352.0 404.8,324.1" class="deck"/><polygon points="332.4,330.6 353.8,360.4 353.8,352.0 332.4,324.1" class="wood"/><polygon points="332.4,222.8 353.8,220.6 447.7,220.6 404.8,222.8" class="deck"/><polygon points="332.4,229.3 353.8,229.1 353.8,220.6 332.4,222.8" class="wood"/><polygon points="138.4,406.3 42.9,544.9 42.9,56.3 138.4,132.7" class="walls"/><line x1="138.4" y1="379.0" x2="42.9" y2="496.0" class="board"/><line x1="138.4" y1="351.6" x2="42.9" y2="447.1" class="board"/><line x1="138.4" y1="324.2" x2="42.9" y2="398.3" class="board"/><line x1="138.4" y1="296.9" x2="42.9" y2="349.4" class="board"/><line x1="138.4" y1="269.5" x2="42.9" y2="300.6" class="board"/><line x1="138.4" y1="242.2" x2="42.9" y2="251.7" class="board"/><line x1="138.4" y1="214.8" x2="42.9" y2="202.9" class="board"/><line x1="138.4" y1="187.4" x2="42.9" y2="154.0" class="board"/><line x1="138.4" y1="160.1" x2="42.9" y2="105.1" class="board"/><polygon points="138.4,132.7 100.0,-18.0 42.9,29.1 42.9,56.3" class="shade"/><polygon points="118.3,435.5 76.3,496.3 76.3,117.5 118.3,143.2" class="trimfaceside"/><polygon points="116.9,433.9 78.5,488.6 78.5,139.3 116.9,158.5" class="wood"/><polygon points="113.8,288.5 103.3,292.7 103.3,237.8 113.8,237.3" class="glass"/><polygon points="113.8,230.0 103.3,230.0 103.3,175.2 113.8,178.8" class="glass"/><polygon points="99.2,294.3 86.3,299.5 86.3,238.7 99.2,238.0" class="glass"/><polygon points="99.2,230.0 86.3,230.0 86.3,169.2 99.2,173.7" class="glass"/><circle cx="113.1" cy="310.8" r="4" class="knob"/><line x1="191.6" y1="120.6" x2="328.4" y2="120.6" class="dim" marker-start="url(#interior-m)" marker-end="url(#interior-m)"/><rect x="222.4" y="102.1" width="75.2" height="15.0" rx="3" class="pill"/><text x="260.0" y="113.2" text-anchor="middle" class="dimt" font-size="10">45 cm window</text><line x1="171.8" y1="239.1" x2="171.8" y2="132.7" class="dim" marker-start="url(#interior-m)" marker-end="url(#interior-m)"/><rect x="149.2" y="178.4" width="19.2" height="15.0" rx="3" class="pill"/><text x="158.8" y="189.5" text-anchor="middle" class="dimt" font-size="10">35</text><line x1="171.8" y1="406.3" x2="171.8" y2="239.1" class="dim" marker-start="url(#interior-m)" marker-end="url(#interior-m)"/><rect x="126.2" y="315.2" width="47.2" height="15.0" rx="3" class="pill"/><text x="149.8" y="326.3" text-anchor="middle" class="dimt" font-size="10">sill 55</text><line x1="144.5" y1="394.2" x2="375.5" y2="394.2" class="dim" marker-start="url(#interior-m)" marker-end="url(#interior-m)"/><rect x="205.6" y="376.7" width="108.8" height="15.0" rx="3" class="pill"/><text x="260.0" y="387.8" text-anchor="middle" class="dimt" font-size="10">80 cm (room depth)</text><line x1="460.9" y1="544.9" x2="460.9" y2="56.3" class="dim" marker-start="url(#interior-m)" marker-end="url(#interior-m)"/><rect x="418.9" y="293.1" width="36.0" height="15.0" rx="3" class="pill"/><text x="436.9" y="304.2" text-anchor="middle" class="dimt" font-size="10">90 cm</text><rect x="62.4" y="342.5" width="75.2" height="15.0" rx="3" class="pill"/><text x="100.0" y="353.6" text-anchor="middle" class="dimt" font-size="10">door 40 × 75</text><text x="382.6" y="164.8" text-anchor="middle" class="note" font-size="10">shelves</text></svg><!-- /diagram:interior --></div>
+        <figcaption>Interior view, facing the serving window. The door wall is on your left and the back wall with shelves is on your right.</figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#dims">Dimensions</a>
+  <a href="#materials">Materials</a>
+  <a href="#cuts">Cut list</a>
+  <a href="#tools">Tools</a>
+  <a href="#steps">Build steps</a>
+  <a href="#safety">Safety</a>
+</nav>
+
+<div class="progress"><span id="ptext">0 of 10 steps done</span><div class="bar"><i id="pbar"></i></div></div>
+
+<section id="dims">
+  <h2>1. Key dimensions</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Element</th><th>Size</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Deck / floor</td><td class="num">120 × 120 cm</td><td>Covers both the room and the porch. 18 mm plywood on a 2×4 frame.</td></tr>
+        <tr><td>Enclosed room</td><td class="num">120 W × 80 D</td><td>Back wall and two side walls are solid. Front wall has the door.</td></tr>
+        <tr><td>Porch</td><td class="num">120 W × 40 D</td><td>Railings on the front and both sides, with a 50 cm opening in the middle of the front.</td></tr>
+        <tr><td>Wall height (eave)</td><td class="num">90 cm</td><td>Top plate sits at 90 cm; this is also the top of the window.</td></tr>
+        <tr><td>Ridge height</td><td class="num">120 cm</td><td>Roof rise 30 cm over a 60 cm run, about 27° (1:2 pitch).</td></tr>
+        <tr><td>Roof overhang</td><td class="num">10 cm</td><td>All four sides. Ridge board length 140 cm.</td></tr>
+        <tr><td>Serving window</td><td class="num">45 W × 35 H</td><td>Sill at 55 cm, top at 90 cm, centred on the left side wall.</td></tr>
+        <tr><td>Counter</td><td class="num">55 × 18 cm</td><td>Outside, under the window at 55 cm, on two brackets.</td></tr>
+        <tr><td>Door</td><td class="num">40 W × 75 H</td><td>Rough opening 45 × 80 cm, centred on the front wall. Four small panes in the top half.</td></tr>
+        <tr><td>Porch railing</td><td class="num">50 cm high</td><td>Left 35 cm, opening 50 cm, right 35 cm. Baluster gaps no more than 9 cm.</td></tr>
+        <tr><td>Porch posts</td><td class="num">7 × 7 cm, 90 cm</td><td>Two front corner posts carry the roof's front beam.</td></tr>
+      </tbody>
+    </table>
+    <div class="tip">The 80 / 40 cm split and the 35 / 50 / 35 railing split were scaled from the drawing. If you change them, keep the total depth at 120 cm so the roof and floor cut list still work.</div>
+  </div>
+</section>
+
+<section id="materials">
+  <h2>2. Materials</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Qty</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>Treated 2×4 (38 × 89 mm), 2.4 m</td><td class="num">3</td><td>Floor frame, ridge, front beam, porch side beams</td></tr>
+        <tr><td>2×2 (38 × 38 mm), 2.4 m</td><td class="num">16</td><td>Wall studs and plates, rafters, railings, balusters, counter brackets</td></tr>
+        <tr><td>Post 70 × 70 mm, 1.0 m</td><td class="num">2</td><td>Porch corner posts</td></tr>
+        <tr><td>Plywood 18 mm, 1220 × 2440</td><td class="num">1</td><td>Floor (1220 × 1220), door, counter top, interior shelves</td></tr>
+        <tr><td>Plywood 9 to 12 mm exterior, 1220 × 2440 (or tongue-and-groove cladding, about 9 m²)</td><td class="num">3</td><td>Wall cladding, gable triangles</td></tr>
+        <tr><td>Plywood 9 mm, 1220 × 2440</td><td class="num">2</td><td>Roof sheathing, two panels 140 × 80 cm</td></tr>
+        <tr><td>Roofing felt or corrugated roofing, 3 m²</td><td class="num">1 roll / 2 sheets</td><td>Weatherproof roof cover</td></tr>
+        <tr><td>Concrete pavers or treated 4×4 skids</td><td class="num">4 to 6</td><td>Keep the floor frame off the ground</td></tr>
+        <tr><td>Exterior screws 4 × 50 mm</td><td class="num">1 box (200)</td><td>Framing</td></tr>
+        <tr><td>Exterior screws 4 × 30 mm</td><td class="num">1 box (200)</td><td>Cladding, roof sheathing, trim</td></tr>
+        <tr><td>Exterior screws 5 × 80 mm</td><td class="num">20</td><td>Floor frame, posts, beams</td></tr>
+        <tr><td>Metal angle brackets 50 mm</td><td class="num">12</td><td>Posts to deck, rafters to plates</td></tr>
+        <tr><td>Door hinges 60 mm</td><td class="num">2</td><td>Door</td></tr>
+        <tr><td>Door knob, magnetic catch</td><td class="num">1 each</td><td>No locking latch. See safety.</td></tr>
+        <tr><td>Clear acrylic 3 mm (optional)</td><td class="num">1 sheet 50 × 40 cm</td><td>Door panes. Leave the serving window open.</td></tr>
+        <tr><td>White exterior paint, child-safe wood stain or oil</td><td class="num">1 L each</td><td>Trim white, walls natural</td></tr>
+        <tr><td>Exterior wood glue, sandpaper 80 / 120 / 180</td><td class="num">1 each</td><td>Joints and finishing</td></tr>
+        <tr><td>Battery LED lantern (optional)</td><td class="num">1</td><td>Porch light. No mains wiring.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="cuts">
+  <h2>3. Cut list</h2>
+  <div class="card">
+    <p>Lengths are nominal. Measure the real frame before cutting cladding, rafters and railing parts.</p>
+    <h3>Floor frame (2×4)</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Length</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Rim joists (front and back)</td><td class="num">120 cm</td><td class="num">2</td></tr>
+        <tr><td>Joists (between rims)</td><td class="num">112.4 cm</td><td class="num">4</td></tr>
+        <tr><td>Floor sheet (18 mm ply)</td><td class="num">120 × 120 cm</td><td class="num">1</td></tr>
+      </tbody>
+    </table>
+    <h3>Walls (2×2, studs at 40 cm centres)</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Length</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Side wall plates (left and right, full 80 cm)</td><td class="num">80 cm</td><td class="num">4</td></tr>
+        <tr><td>Back and front wall plates (fit between the side walls)</td><td class="num">112.4 cm</td><td class="num">4</td></tr>
+        <tr><td>Studs (90 cm wall minus two 3.8 cm plates): right 3, left 4 (incl. 2 window studs), back 4, front 2</td><td class="num">82.4 cm</td><td class="num">13</td></tr>
+        <tr><td>Window sill (fits between the window studs, top face at 55 cm)</td><td class="num">45 cm</td><td class="num">1</td></tr>
+        <tr><td>Window cripples (bottom plate to sill)</td><td class="num">47.4 cm</td><td class="num">2</td></tr>
+        <tr><td>Door header (sits on the jack studs, underside at 80 cm)</td><td class="num">52.6 cm</td><td class="num">1</td></tr>
+        <tr><td>Door jack studs (bottom plate to header)</td><td class="num">76.2 cm</td><td class="num">2</td></tr>
+        <tr><td>Packers (header to top plate)</td><td class="num">2.4 cm</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+    <h3>Porch (2×4 and posts)</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Length</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Corner posts (70 × 70), 3.8 × 8.9 cm notch in the front face of the top</td><td class="num">90 cm</td><td class="num">2</td></tr>
+        <tr><td>Front beam (2×4, sits in the post notches)</td><td class="num">120 cm</td><td class="num">1</td></tr>
+        <tr><td>Side beams (2×4, front wall to back face of post)</td><td class="num">33 cm, cut to fit</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+    <h3>Roof (2×2 rafters, 9 mm ply)</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Length</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Ridge board (2×4)</td><td class="num">140 cm</td><td class="num">1</td></tr>
+        <tr><td>Rafters, 27° plumb cut at the top, birdsmouth at the wall</td><td class="num">78 cm</td><td class="num">10 (5 pairs at 35 cm)</td></tr>
+        <tr><td>Roof panels</td><td class="num">140 × 80 cm</td><td class="num">2</td></tr>
+        <tr><td>Gable triangles (12 mm ply): 120 cm base, 30 cm high</td><td class="num">—</td><td class="num">2</td></tr>
+        <tr><td>Fascia and barge boards (2×2 or 1×4)</td><td class="num">80 cm and 140 cm</td><td class="num">4 + 2</td></tr>
+      </tbody>
+    </table>
+    <h3>Railings (2×2)</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Length</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Intermediate posts (35 cm in from each corner post)</td><td class="num">50 cm</td><td class="num">2</td></tr>
+        <tr><td>Top and bottom rails (corner post to intermediate post)</td><td class="num">about 24 cm, cut to fit</td><td class="num">4</td></tr>
+        <tr><td>Balusters, front (two per section, gaps about 5.5 cm)</td><td class="num">37.4 cm</td><td class="num">4</td></tr>
+        <tr><td>Side rails (side wall to corner pillar, both sides)</td><td class="num">about 33 cm, cut to fit</td><td class="num">4</td></tr>
+        <tr><td>Balusters, sides (three per side, gaps about 5.4 cm)</td><td class="num">37.4 cm</td><td class="num">6</td></tr>
+      </tbody>
+    </table>
+    <h3>Window, counter and door</h3>
+    <table>
+      <thead><tr><th>Part</th><th>Size</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Counter top (18 mm ply)</td><td class="num">55 × 18 cm</td><td class="num">1</td></tr>
+        <tr><td>Counter brackets (2×2 triangles)</td><td class="num">15 × 15 cm</td><td class="num">2</td></tr>
+        <tr><td>Window trim (1×3 or ply strips, painted white)</td><td class="num">frame to fit 45 × 35 cm</td><td class="num">1 set</td></tr>
+        <tr><td>Door (18 mm ply)</td><td class="num">40 × 75 cm</td><td class="num">1</td></tr>
+        <tr><td>Door pane cut-outs (2 × 2 grid)</td><td class="num">4 × (12 × 14 cm)</td><td class="num">1 set</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="tools">
+  <h2>4. Tools</h2>
+  <div class="card two">
+    <div>
+      <h3>Essential</h3>
+      <ul class="plain">
+        <li>Cordless drill and driver with a 3 mm pilot bit and PZ2 or PH2 bits</li>
+        <li>Circular saw or hand saw (a mitre saw speeds up the 27° cuts)</li>
+        <li>Jigsaw for the window, door panes and gable triangles</li>
+        <li>Tape measure, pencil, carpenter's square, spirit level</li>
+        <li>Clamps (at least 2), sawhorses or a flat bench</li>
+        <li>Sanding block or orbital sander</li>
+        <li>Safety glasses, ear protection, dust mask, gloves</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Nice to have</h3>
+      <ul class="plain">
+        <li>Speed square for marking rafter angles</li>
+        <li>Countersink bit so screw heads sit flush</li>
+        <li>Router with a round-over bit for child-safe edges</li>
+        <li>Staple gun for roofing felt</li>
+        <li>Paint sprayer, or a 50 mm brush and small roller</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>5. Build steps</h2>
+  <p>Each step is broken into small illustrated parts. Jump straight to the part you are building:</p>
+  <div class="jump">
+    <a href="#step-base">Base and floor</a>
+    <a href="#step-walls">Walls</a>
+    <a href="#step-pillars">Pillars and beams</a>
+    <a href="#step-roof">Roof</a>
+    <a href="#step-porch">Porch railings</a>
+  </div>
+  <div class="legend" aria-label="Diagram legend">
+    <span><i class="l-new"></i>Parts you add in this picture</span>
+    <span><i class="l-old"></i>Parts already built</span>
+    <span><i class="l-cut"></i>Opening or outline for reference</span>
+    <span><i class="l-dim"></i>Dimension in cm</span>
+  </div>
+
+  <div class="step" data-step="1" id="step-base">
+    <div class="n">1</div>
+    <div>
+      <h3>Plan the site and prepare the base</h3>
+      <div class="meta">About 1 hour</div>
+      <div class="sub">
+        <figure><!-- diagram:base1 --><svg class="dg" viewBox="17 -9 379 330" role="img" aria-label="Plan view: six pavers under the 120 by 120 cm footprint, checked level with a straight board"><defs><marker id="base1-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="34.5" y="34.5" width="51.0" height="51.0" class="paver"/><rect x="136.5" y="34.5" width="51.0" height="51.0" class="paver"/><rect x="238.5" y="34.5" width="51.0" height="51.0" class="paver"/><rect x="34.5" y="238.5" width="51.0" height="51.0" class="paver"/><rect x="136.5" y="238.5" width="51.0" height="51.0" class="paver"/><rect x="238.5" y="238.5" width="51.0" height="51.0" class="paver"/><rect x="60.0" y="60.0" width="204.0" height="204.0" class="ghost"/><rect x="22.6" y="55.8" width="278.8" height="8.5" class="board"/><text x="162.0" y="100.8" text-anchor="middle" class="cap" font-size="10">↑ straight board + spirit level</text><text x="162.0" y="121.2" text-anchor="middle" class="cap" font-size="10">BACK</text><text x="162.0" y="226.6" text-anchor="middle" class="cap" font-size="10">FRONT (porch side)</text><text x="162.0" y="162.0" text-anchor="middle" class="capb" font-size="11">footprint 120 × 120 cm</text><text x="162.0" y="177.3" text-anchor="middle" class="cap" font-size="10">keep 50 cm clear all round</text><line x1="60.0" y1="34.5" x2="60.0" y2="11.8" class="ext"/><line x1="264.0" y1="34.5" x2="264.0" y2="11.8" class="ext"/><line x1="60.0" y1="15.8" x2="264.0" y2="15.8" class="dim" marker-start="url(#base1-m)" marker-end="url(#base1-m)"/><rect x="139.5" y="-2.7" width="45.0" height="16.0" rx="3" class="pill"/><text x="162.0" y="9.3" text-anchor="middle" class="dimt" font-size="11">120 cm</text><line x1="291.2" y1="60.0" x2="322.4" y2="60.0" class="ext"/><line x1="291.2" y1="264.0" x2="322.4" y2="264.0" class="ext"/><line x1="318.4" y1="60.0" x2="318.4" y2="264.0" class="dim" marker-start="url(#base1-m)" marker-end="url(#base1-m)"/><rect x="322.4" y="154.0" width="45.0" height="16.0" rx="3" class="pill"/><text x="344.9" y="166.0" text-anchor="middle" class="dimt" font-size="11">120 cm</text><line x1="264.0" y1="277.6" x2="179.0" y2="308.2" class="lead"/><circle cx="264.0" cy="277.6" r="2.2" class="leaddot"/><text x="182.0" y="312.2" text-anchor="start" class="note" font-size="10">pavers 30 × 30 cm on sand, tops level</text></svg><!-- /diagram:base1 --><figcaption>Seen from above. Six pavers carry the corners and the middle of the front and back rim joists.</figcaption></figure>
+        <div>
+          <h4><span>1a</span> Set out and level the pavers</h4>
+          <ol>
+            <li>Choose a flat, well-drained spot with 50 cm of clear space around the 120 × 120 cm footprint.</li>
+            <li>Mark the footprint with four pegs and string. Check the diagonals are equal.</li>
+            <li>Dig out turf under each paver position, add 3 cm of sand, and bed a 30 × 30 cm paver at each corner and one in the middle of the front and back edges.</li>
+            <li>Lay a long straight board across the pavers in every direction and check with a spirit level. Add or scrape sand until all six tops are level.</li>
+          </ol>
+          <div class="tip">Decide now which side the window faces. The serving window is on the left side wall when you look at the front door.</div>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 1 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="2">
+    <div class="n">2</div>
+    <div>
+      <h3>Build the floor frame and deck</h3>
+      <div class="meta">About 2 hours</div>
+      <div class="sub">
+        <figure><!-- diagram:base2 --><svg class="dg" viewBox="44 12 357 310" role="img" aria-label="Plan view of the 2 by 4 floor frame: two 120 cm rim joists and four 112.4 cm joists"><defs><marker id="base2-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><line x1="60.0" y1="60.0" x2="264.0" y2="264.0" class="ghost"/><line x1="264.0" y1="60.0" x2="60.0" y2="264.0" class="ghost"/><rect x="60.0" y="60.0" width="204.0" height="6.5" class="new"/><rect x="60.0" y="257.5" width="204.0" height="6.5" class="new"/><rect x="60.0" y="66.5" width="6.5" height="191.1" class="new"/><circle cx="61.9" cy="63.2" r="1.2" class="screw"/><circle cx="64.6" cy="63.2" r="1.2" class="screw"/><circle cx="61.9" cy="260.8" r="1.2" class="screw"/><circle cx="64.6" cy="260.8" r="1.2" class="screw"/><rect x="125.8" y="66.5" width="6.5" height="191.1" class="new"/><circle cx="127.7" cy="63.2" r="1.2" class="screw"/><circle cx="130.4" cy="63.2" r="1.2" class="screw"/><circle cx="127.7" cy="260.8" r="1.2" class="screw"/><circle cx="130.4" cy="260.8" r="1.2" class="screw"/><rect x="191.7" y="66.5" width="6.5" height="191.1" class="new"/><circle cx="193.6" cy="63.2" r="1.2" class="screw"/><circle cx="196.3" cy="63.2" r="1.2" class="screw"/><circle cx="193.6" cy="260.8" r="1.2" class="screw"/><circle cx="196.3" cy="260.8" r="1.2" class="screw"/><rect x="257.5" y="66.5" width="6.5" height="191.1" class="new"/><circle cx="259.4" cy="63.2" r="1.2" class="screw"/><circle cx="262.1" cy="63.2" r="1.2" class="screw"/><circle cx="259.4" cy="260.8" r="1.2" class="screw"/><circle cx="262.1" cy="260.8" r="1.2" class="screw"/><rect x="68.4" y="154.5" width="187.2" height="15.0" rx="3" class="pill"/><text x="162.0" y="165.6" text-anchor="middle" class="dimt" font-size="10">both diagonals 169.7 cm = square</text><line x1="60.0" y1="60.0" x2="60.0" y2="32.2" class="ext"/><line x1="264.0" y1="60.0" x2="264.0" y2="32.2" class="ext"/><line x1="60.0" y1="36.2" x2="264.0" y2="36.2" class="dim" marker-start="url(#base2-m)" marker-end="url(#base2-m)"/><rect x="105.6" y="17.7" width="112.7" height="16.0" rx="3" class="pill"/><text x="162.0" y="29.7" text-anchor="middle" class="dimt" font-size="11">rim joists 120 cm</text><line x1="264.0" y1="66.5" x2="295.2" y2="66.5" class="ext"/><line x1="264.0" y1="257.5" x2="295.2" y2="257.5" class="ext"/><line x1="291.2" y1="66.5" x2="291.2" y2="257.5" class="dim" marker-start="url(#base2-m)" marker-end="url(#base2-m)"/><rect x="295.2" y="154.0" width="100.4" height="16.0" rx="3" class="pill"/><text x="345.4" y="166.0" text-anchor="middle" class="dimt" font-size="11">joists 112.4 cm</text><line x1="63.2" y1="264.0" x2="63.2" y2="288.4" class="ext"/><line x1="129.1" y1="264.0" x2="129.1" y2="288.4" class="ext"/><line x1="63.2" y1="284.4" x2="129.1" y2="284.4" class="dim" marker-start="url(#base2-m)" marker-end="url(#base2-m)"/><rect x="50.2" y="286.9" width="92.0" height="15.0" rx="3" class="pill"/><text x="96.2" y="298.0" text-anchor="middle" class="dimt" font-size="10">38.7 cm centres</text><line x1="195.9" y1="260.8" x2="155.2" y2="308.2" class="lead"/><circle cx="195.9" cy="260.8" r="2.2" class="leaddot"/><text x="158.2" y="312.2" text-anchor="start" class="note" font-size="10">2 × 5 × 80 mm screws per joist end</text><line x1="194.9" y1="213.0" x2="202.8" y2="230.0" class="lead"/><circle cx="194.9" cy="213.0" r="2.2" class="leaddot"/><text x="205.8" y="234.0" text-anchor="start" class="note" font-size="10">2×4 on edge</text></svg><!-- /diagram:base2 --><figcaption>Seen from above. Rim joists run left to right at the back and front; the four joists fit between them.</figcaption></figure>
+        <div>
+          <h4><span>2a</span> Assemble the 2×4 frame</h4>
+          <ol>
+            <li>Cut two rim joists at 120 cm and four joists at 112.4 cm from 2×4.</li>
+            <li>Stand all six pieces on edge on the pavers. Put a joist at each end of the rims and two in between, at about 38.7 cm centres.</li>
+            <li>Drill 3 mm pilot holes and drive two 5 × 80 mm screws through the rim into each joist end.</li>
+            <li>Square the frame: both diagonals must read the same, about 169.7 cm. Push the long corner in until they match.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:base3 --><svg class="dg" viewBox="-42 12 382 316" role="img" aria-label="Plan view: 120 by 120 cm plywood deck screwed to the frame, pencil line 80 cm from the back edge"><defs><marker id="base3-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="60.0" width="204.0" height="204.0" class="newply"/><circle cx="63.2" cy="77.0" r="1.3" class="screw"/><circle cx="63.2" cy="111.0" r="1.3" class="screw"/><circle cx="63.2" cy="145.0" r="1.3" class="screw"/><circle cx="63.2" cy="179.0" r="1.3" class="screw"/><circle cx="63.2" cy="213.0" r="1.3" class="screw"/><circle cx="63.2" cy="247.0" r="1.3" class="screw"/><circle cx="129.1" cy="77.0" r="1.3" class="screw"/><circle cx="129.1" cy="111.0" r="1.3" class="screw"/><circle cx="129.1" cy="145.0" r="1.3" class="screw"/><circle cx="129.1" cy="179.0" r="1.3" class="screw"/><circle cx="129.1" cy="213.0" r="1.3" class="screw"/><circle cx="129.1" cy="247.0" r="1.3" class="screw"/><circle cx="194.9" cy="77.0" r="1.3" class="screw"/><circle cx="194.9" cy="111.0" r="1.3" class="screw"/><circle cx="194.9" cy="145.0" r="1.3" class="screw"/><circle cx="194.9" cy="179.0" r="1.3" class="screw"/><circle cx="194.9" cy="213.0" r="1.3" class="screw"/><circle cx="194.9" cy="247.0" r="1.3" class="screw"/><circle cx="260.8" cy="77.0" r="1.3" class="screw"/><circle cx="260.8" cy="111.0" r="1.3" class="screw"/><circle cx="260.8" cy="145.0" r="1.3" class="screw"/><circle cx="260.8" cy="179.0" r="1.3" class="screw"/><circle cx="260.8" cy="213.0" r="1.3" class="screw"/><circle cx="260.8" cy="247.0" r="1.3" class="screw"/><circle cx="77.0" cy="63.2" r="1.3" class="screw"/><circle cx="77.0" cy="260.8" r="1.3" class="screw"/><circle cx="111.0" cy="63.2" r="1.3" class="screw"/><circle cx="111.0" cy="260.8" r="1.3" class="screw"/><circle cx="145.0" cy="63.2" r="1.3" class="screw"/><circle cx="145.0" cy="260.8" r="1.3" class="screw"/><circle cx="179.0" cy="63.2" r="1.3" class="screw"/><circle cx="179.0" cy="260.8" r="1.3" class="screw"/><circle cx="213.0" cy="63.2" r="1.3" class="screw"/><circle cx="213.0" cy="260.8" r="1.3" class="screw"/><circle cx="247.0" cy="63.2" r="1.3" class="screw"/><circle cx="247.0" cy="260.8" r="1.3" class="screw"/><line x1="60.0" y1="196.0" x2="264.0" y2="196.0" class="pencil"/><text x="162.0" y="121.2" text-anchor="middle" class="big" font-size="15">ROOM</text><text x="162.0" y="138.2" text-anchor="middle" class="cap" font-size="10">120 × 80 cm</text><text x="162.0" y="224.9" text-anchor="middle" class="big" font-size="15">PORCH</text><text x="162.0" y="241.9" text-anchor="middle" class="cap" font-size="10">120 × 40 cm</text><line x1="60.0" y1="60.0" x2="60.0" y2="32.2" class="ext"/><line x1="264.0" y1="60.0" x2="264.0" y2="32.2" class="ext"/><line x1="60.0" y1="36.2" x2="264.0" y2="36.2" class="dim" marker-start="url(#base3-m)" marker-end="url(#base3-m)"/><rect x="77.9" y="17.7" width="168.2" height="16.0" rx="3" class="pill"/><text x="162.0" y="29.7" text-anchor="middle" class="dimt" font-size="11">18 mm plywood 120 × 120 cm</text><line x1="264.0" y1="60.0" x2="295.2" y2="60.0" class="ext"/><line x1="264.0" y1="196.0" x2="295.2" y2="196.0" class="ext"/><line x1="291.2" y1="60.0" x2="291.2" y2="196.0" class="dim" marker-start="url(#base3-m)" marker-end="url(#base3-m)"/><rect x="295.2" y="120.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="314.6" y="132.0" text-anchor="middle" class="dimt" font-size="11">80 cm</text><line x1="264.0" y1="196.0" x2="295.2" y2="196.0" class="ext"/><line x1="264.0" y1="264.0" x2="295.2" y2="264.0" class="ext"/><line x1="291.2" y1="196.0" x2="291.2" y2="264.0" class="dim" marker-start="url(#base3-m)" marker-end="url(#base3-m)"/><rect x="295.2" y="222.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="314.6" y="234.0" text-anchor="middle" class="dimt" font-size="11">40 cm</text><line x1="63.2" y1="247.0" x2="46.4" y2="294.6" class="lead"/><circle cx="63.2" cy="247.0" r="2.2" class="leaddot"/><text x="49.4" y="298.6" text-anchor="start" class="note" font-size="10">4 × 50 mm screws every 20 cm</text><line x1="264.0" y1="196.0" x2="168.8" y2="315.0" class="lead"/><circle cx="264.0" cy="196.0" r="2.2" class="leaddot"/><text x="165.8" y="319.0" text-anchor="end" class="note" font-size="10">pencil line 80 cm from the back edge</text></svg><!-- /diagram:base3 --><figcaption>The plywood covers the whole frame. The pencil line splits the room from the porch.</figcaption></figure>
+        <div>
+          <h4><span>2b</span> Fix the plywood deck</h4>
+          <ol>
+            <li>Cut the 18 mm plywood to 120 × 120 cm.</li>
+            <li>Lay it on the frame with all four edges flush. The sheet locks the frame square, so recheck the diagonals first.</li>
+            <li>Screw it down every 20 cm along every rim and joist with 4 × 50 mm screws. Snap a chalk line over each joist so you hit it.</li>
+            <li>Draw a pencil line across the deck 80 cm from the back edge. Everything in front of that line is porch.</li>
+          </ol>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 2 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="3" id="step-walls">
+    <div class="n">3</div>
+    <div>
+      <h3>Frame the four walls flat on the deck</h3>
+      <div class="meta">About 3 hours</div>
+      <p>Build each wall lying flat on the deck, which is a flat, square work table. Every joint gets glue and two 4 × 50 mm screws driven through the plate into the stud end. All walls are 90 cm tall: 3.8 cm bottom plate, 82.4 cm studs, 3.8 cm top plate.</p>
+      <div class="sub">
+        <figure><!-- diagram:wall1 --><svg class="dg" viewBox="52 -7 353 258" role="img" aria-label="Elevation of the right side wall frame: 80 cm plates and three 82.4 cm studs, 90 cm tall"><defs><marker id="wall1-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="202.8" width="152.0" height="7.2" class="new"/><rect x="60.0" y="39.0" width="152.0" height="7.2" class="new"/><rect x="60.0" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="62.1" cy="206.4" r="1.2" class="screw"/><circle cx="65.1" cy="206.4" r="1.2" class="screw"/><circle cx="62.1" cy="42.6" r="1.2" class="screw"/><circle cx="65.1" cy="42.6" r="1.2" class="screw"/><rect x="132.4" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="134.5" cy="206.4" r="1.2" class="screw"/><circle cx="137.5" cy="206.4" r="1.2" class="screw"/><circle cx="134.5" cy="42.6" r="1.2" class="screw"/><circle cx="137.5" cy="42.6" r="1.2" class="screw"/><rect x="204.8" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="206.9" cy="206.4" r="1.2" class="screw"/><circle cx="209.9" cy="206.4" r="1.2" class="screw"/><circle cx="206.9" cy="42.6" r="1.2" class="screw"/><circle cx="209.9" cy="42.6" r="1.2" class="screw"/><line x1="60.0" y1="39.0" x2="60.0" y2="19.8" class="ext"/><line x1="212.0" y1="39.0" x2="212.0" y2="19.8" class="ext"/><line x1="60.0" y1="23.8" x2="212.0" y2="23.8" class="dim" marker-start="url(#wall1-m)" marker-end="url(#wall1-m)"/><rect x="95.0" y="5.3" width="81.9" height="16.0" rx="3" class="pill"/><text x="136.0" y="17.3" text-anchor="middle" class="dimt" font-size="11">plates 80 cm</text><line x1="212.0" y1="210.0" x2="231.2" y2="210.0" class="ext"/><line x1="212.0" y1="39.0" x2="231.2" y2="39.0" class="ext"/><line x1="227.2" y1="210.0" x2="227.2" y2="39.0" class="dim" marker-start="url(#wall1-m)" marker-end="url(#wall1-m)"/><rect x="231.2" y="116.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="250.6" y="128.5" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="98.0" y1="202.8" x2="98.0" y2="46.2" class="dim" marker-start="url(#wall1-m)" marker-end="url(#wall1-m)"/><rect x="57.6" y="117.0" width="80.8" height="15.0" rx="3" class="pill"/><text x="98.0" y="128.1" text-anchor="middle" class="dimt" font-size="10">studs 82.4 cm</text><line x1="63.6" y1="210.0" x2="63.6" y2="231.1" class="ext"/><line x1="136.0" y1="210.0" x2="136.0" y2="231.1" class="ext"/><line x1="63.6" y1="227.1" x2="136.0" y2="227.1" class="dim" marker-start="url(#wall1-m)" marker-end="url(#wall1-m)"/><rect x="59.4" y="229.6" width="80.8" height="15.0" rx="3" class="pill"/><text x="99.8" y="240.7" text-anchor="middle" class="dimt" font-size="10">38 cm centres</text><line x1="174.0" y1="42.6" x2="272.8" y2="4.8" class="lead"/><circle cx="174.0" cy="42.6" r="2.2" class="leaddot"/><text x="275.8" y="8.8" text-anchor="start" class="note" font-size="10">top plate</text><line x1="174.0" y1="206.4" x2="272.8" y2="194.8" class="lead"/><circle cx="174.0" cy="206.4" r="2.2" class="leaddot"/><text x="275.8" y="198.8" text-anchor="start" class="note" font-size="10">bottom plate</text><line x1="136.0" y1="42.6" x2="272.8" y2="84.6" class="lead"/><circle cx="136.0" cy="42.6" r="2.2" class="leaddot"/><text x="275.8" y="88.6" text-anchor="start" class="note" font-size="10">2 × 4 × 50 mm screws</text><text x="275.8" y="100.6" text-anchor="start" class="note" font-size="10">through the plate into</text><text x="275.8" y="112.6" text-anchor="start" class="note" font-size="10">each stud end</text></svg><!-- /diagram:wall1 --><figcaption>Right side wall seen from outside. This is the simplest wall, so build it first to get the method right.</figcaption></figure>
+        <div>
+          <h4><span>3a</span> Right side wall</h4>
+          <ol>
+            <li>Cut two plates at 80 cm and three studs at 82.4 cm.</li>
+            <li>Lay the plates on edge, parallel, and mark stud positions: one flush at each end and one in the middle.</li>
+            <li>Glue and screw each stud between the plates.</li>
+            <li>Measure both diagonals and nudge the frame until they match, then fix a temporary diagonal batten across it to hold it square.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:wall2 --><svg class="dg" viewBox="-48 -1 402 217" role="img" aria-label="Elevation of the left side wall: two window studs, a sill and two cripples frame the 45 by 35 cm serving window"><defs><marker id="wall2-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="202.8" width="152.0" height="7.2" class="wood"/><rect x="60.0" y="39.0" width="152.0" height="7.2" class="wood"/><rect x="60.0" y="46.2" width="7.2" height="156.6" class="wood"/><circle cx="62.1" cy="206.4" r="1.2" class="screw"/><circle cx="65.1" cy="206.4" r="1.2" class="screw"/><circle cx="62.1" cy="42.6" r="1.2" class="screw"/><circle cx="65.1" cy="42.6" r="1.2" class="screw"/><rect x="204.8" y="46.2" width="7.2" height="156.6" class="wood"/><circle cx="206.9" cy="206.4" r="1.2" class="screw"/><circle cx="209.9" cy="206.4" r="1.2" class="screw"/><circle cx="206.9" cy="42.6" r="1.2" class="screw"/><circle cx="209.9" cy="42.6" r="1.2" class="screw"/><rect x="86.0" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="88.1" cy="206.4" r="1.2" class="screw"/><circle cx="91.2" cy="206.4" r="1.2" class="screw"/><circle cx="88.1" cy="42.6" r="1.2" class="screw"/><circle cx="91.2" cy="42.6" r="1.2" class="screw"/><rect x="178.8" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="180.8" cy="206.4" r="1.2" class="screw"/><circle cx="183.9" cy="206.4" r="1.2" class="screw"/><circle cx="180.8" cy="42.6" r="1.2" class="screw"/><circle cx="183.9" cy="42.6" r="1.2" class="screw"/><rect x="93.2" y="105.5" width="85.5" height="7.2" class="new"/><rect x="118.1" y="112.7" width="7.2" height="90.1" class="new"/><circle cx="120.2" cy="206.4" r="1.2" class="screw"/><circle cx="123.3" cy="206.4" r="1.2" class="screw"/><rect x="146.6" y="112.7" width="7.2" height="90.1" class="new"/><circle cx="148.7" cy="206.4" r="1.2" class="screw"/><circle cx="151.8" cy="206.4" r="1.2" class="screw"/><rect x="93.2" y="46.2" width="85.5" height="59.3" class="cut"/><text x="136.0" y="77.0" text-anchor="middle" class="capb" font-size="10">window</text><line x1="93.2" y1="46.6" x2="93.2" y2="19.8" class="ext"/><line x1="178.8" y1="46.6" x2="178.8" y2="19.8" class="ext"/><line x1="93.2" y1="23.8" x2="178.8" y2="23.8" class="dim" marker-start="url(#wall2-m)" marker-end="url(#wall2-m)"/><rect x="92.0" y="5.3" width="88.1" height="16.0" rx="3" class="pill"/><text x="136.0" y="17.3" text-anchor="middle" class="dimt" font-size="11">45 cm opening</text><line x1="86.0" y1="210.0" x2="44.6" y2="210.0" class="ext"/><line x1="86.0" y1="105.5" x2="44.6" y2="105.5" class="ext"/><line x1="48.6" y1="210.0" x2="48.6" y2="105.5" class="dim" marker-start="url(#wall2-m)" marker-end="url(#wall2-m)"/><rect x="-41.8" y="150.2" width="86.4" height="15.0" rx="3" class="pill"/><text x="1.4" y="161.3" text-anchor="middle" class="dimt" font-size="10">sill top 55 cm</text><line x1="86.0" y1="105.5" x2="44.6" y2="105.5" class="ext"/><line x1="86.0" y1="46.2" x2="44.6" y2="46.2" class="ext"/><line x1="48.6" y1="105.5" x2="48.6" y2="46.2" class="dim" marker-start="url(#wall2-m)" marker-end="url(#wall2-m)"/><rect x="8.6" y="68.4" width="36.0" height="15.0" rx="3" class="pill"/><text x="26.6" y="79.5" text-anchor="middle" class="dimt" font-size="10">35 cm</text><line x1="182.4" y1="69.4" x2="227.2" y2="50.4" class="lead"/><circle cx="182.4" cy="69.4" r="2.2" class="leaddot"/><text x="230.2" y="54.4" text-anchor="start" class="note" font-size="10">window studs 82.4 cm,</text><text x="230.2" y="66.4" text-anchor="start" class="note" font-size="10">45 cm apart</text><line x1="164.5" y1="109.1" x2="227.2" y2="103.6" class="lead"/><circle cx="164.5" cy="109.1" r="2.2" class="leaddot"/><text x="230.2" y="107.6" text-anchor="start" class="note" font-size="10">sill 45 cm between</text><text x="230.2" y="119.6" text-anchor="start" class="note" font-size="10">the window studs</text><line x1="150.2" y1="162.5" x2="227.2" y2="160.6" class="lead"/><circle cx="150.2" cy="162.5" r="2.2" class="leaddot"/><text x="230.2" y="164.6" text-anchor="start" class="note" font-size="10">2 cripples 47.4 cm</text><text x="230.2" y="176.6" text-anchor="start" class="note" font-size="10">under the sill</text></svg><!-- /diagram:wall2 --><figcaption>Left side wall seen from outside. The window runs from the sill up to the top plate.</figcaption></figure>
+        <div>
+          <h4><span>3b</span> Left side wall with the serving window</h4>
+          <ol>
+            <li>Cut two 80 cm plates, four 82.4 cm studs, one 45 cm sill and two 47.4 cm cripples.</li>
+            <li>Fix the two end studs. Fix the two window studs so their inner faces are 17.5 cm from each end, which leaves a 45 cm gap between them.</li>
+            <li>Screw the two cripples to the bottom plate inside the gap, about 15 cm in from each window stud.</li>
+            <li>Lay the 45 cm sill across the cripple tops, between the window studs. Its top face is at 55 cm. Screw through the window studs into the sill ends.</li>
+            <li>The top plate is the window head, so the opening is 45 × 35 cm.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:wall3 --><svg class="dg" viewBox="34 0 303 250" role="img" aria-label="Elevation of the back wall frame: 112.4 cm plates and four studs at 40 cm centres"><defs><marker id="wall3-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="202.8" width="213.6" height="7.2" class="new"/><rect x="60.0" y="39.0" width="213.6" height="7.2" class="new"/><rect x="60.0" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="62.1" cy="206.4" r="1.2" class="screw"/><circle cx="65.1" cy="206.4" r="1.2" class="screw"/><circle cx="62.1" cy="42.6" r="1.2" class="screw"/><circle cx="65.1" cy="42.6" r="1.2" class="screw"/><rect x="132.4" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="134.5" cy="206.4" r="1.2" class="screw"/><circle cx="137.5" cy="206.4" r="1.2" class="screw"/><circle cx="134.5" cy="42.6" r="1.2" class="screw"/><circle cx="137.5" cy="42.6" r="1.2" class="screw"/><rect x="208.4" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="210.5" cy="206.4" r="1.2" class="screw"/><circle cx="213.5" cy="206.4" r="1.2" class="screw"/><circle cx="210.5" cy="42.6" r="1.2" class="screw"/><circle cx="213.5" cy="42.6" r="1.2" class="screw"/><rect x="266.3" y="46.2" width="7.2" height="156.6" class="new"/><circle cx="268.4" cy="206.4" r="1.2" class="screw"/><circle cx="271.5" cy="206.4" r="1.2" class="screw"/><circle cx="268.4" cy="42.6" r="1.2" class="screw"/><circle cx="271.5" cy="42.6" r="1.2" class="screw"/><line x1="60.0" y1="39.0" x2="60.0" y2="19.8" class="ext"/><line x1="273.6" y1="39.0" x2="273.6" y2="19.8" class="ext"/><line x1="60.0" y1="23.8" x2="273.6" y2="23.8" class="dim" marker-start="url(#wall3-m)" marker-end="url(#wall3-m)"/><rect x="39.6" y="6.3" width="254.4" height="15.0" rx="3" class="pill"/><text x="166.8" y="17.4" text-anchor="middle" class="dimt" font-size="10">plates 112.4 cm (fit between the side walls)</text><line x1="273.6" y1="210.0" x2="292.0" y2="210.0" class="ext"/><line x1="273.6" y1="39.0" x2="292.0" y2="39.0" class="ext"/><line x1="288.0" y1="210.0" x2="288.0" y2="39.0" class="dim" marker-start="url(#wall3-m)" marker-end="url(#wall3-m)"/><rect x="292.0" y="116.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="311.4" y="128.5" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="63.6" y1="210.0" x2="63.6" y2="231.1" class="ext"/><line x1="136.0" y1="210.0" x2="136.0" y2="231.1" class="ext"/><line x1="63.6" y1="227.1" x2="136.0" y2="227.1" class="dim" marker-start="url(#wall3-m)" marker-end="url(#wall3-m)"/><rect x="84.6" y="229.6" width="30.4" height="15.0" rx="3" class="pill"/><text x="99.8" y="240.7" text-anchor="middle" class="dimt" font-size="10">38.1</text><line x1="136.0" y1="210.0" x2="136.0" y2="231.1" class="ext"/><line x1="212.0" y1="210.0" x2="212.0" y2="231.1" class="ext"/><line x1="136.0" y1="227.1" x2="212.0" y2="227.1" class="dim" marker-start="url(#wall3-m)" marker-end="url(#wall3-m)"/><rect x="156.0" y="229.6" width="36.0" height="15.0" rx="3" class="pill"/><text x="174.0" y="240.7" text-anchor="middle" class="dimt" font-size="10">40 cm</text><line x1="212.0" y1="210.0" x2="212.0" y2="231.1" class="ext"/><line x1="269.9" y1="210.0" x2="269.9" y2="231.1" class="ext"/><line x1="212.0" y1="227.1" x2="269.9" y2="227.1" class="dim" marker-start="url(#wall3-m)" marker-end="url(#wall3-m)"/><rect x="225.8" y="229.6" width="30.4" height="15.0" rx="3" class="pill"/><text x="241.0" y="240.7" text-anchor="middle" class="dimt" font-size="10">30.5</text><text x="174.0" y="118.8" text-anchor="middle" class="cap" font-size="10">4 studs</text><text x="174.0" y="132.1" text-anchor="middle" class="cap" font-size="10">82.4 cm</text></svg><!-- /diagram:wall3 --><figcaption>Back wall seen from outside. It is 7.6 cm shorter than 120 because it fits between the side walls.</figcaption></figure>
+        <div>
+          <h4><span>3c</span> Back wall</h4>
+          <ol>
+            <li>Cut two plates at 112.4 cm and four studs at 82.4 cm.</li>
+            <li>Fix a stud flush at each end, then two more at 40 cm centres measured from the left end.</li>
+            <li>Square it by its diagonals and add a temporary batten.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:wall4 --><svg class="dg" viewBox="-0 -1 433 246" role="img" aria-label="Elevation of the front wall: two jack studs and a header frame the 45 by 80 cm door opening"><defs><marker id="wall4-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="202.8" width="213.6" height="7.2" class="wood"/><rect x="60.0" y="39.0" width="213.6" height="7.2" class="wood"/><rect x="60.0" y="46.2" width="7.2" height="156.6" class="wood"/><circle cx="62.1" cy="206.4" r="1.2" class="screw"/><circle cx="65.1" cy="206.4" r="1.2" class="screw"/><circle cx="62.1" cy="42.6" r="1.2" class="screw"/><circle cx="65.1" cy="42.6" r="1.2" class="screw"/><rect x="266.3" y="46.2" width="7.2" height="156.6" class="wood"/><circle cx="268.4" cy="206.4" r="1.2" class="screw"/><circle cx="271.5" cy="206.4" r="1.2" class="screw"/><circle cx="268.4" cy="42.6" r="1.2" class="screw"/><circle cx="271.5" cy="42.6" r="1.2" class="screw"/><rect x="116.8" y="58.0" width="7.2" height="144.8" class="new"/><circle cx="118.9" cy="206.4" r="1.2" class="screw"/><circle cx="121.9" cy="206.4" r="1.2" class="screw"/><rect x="209.5" y="58.0" width="7.2" height="144.8" class="new"/><circle cx="211.6" cy="206.4" r="1.2" class="screw"/><circle cx="214.7" cy="206.4" r="1.2" class="screw"/><rect x="116.8" y="50.8" width="99.9" height="7.2" class="new"/><rect x="116.8" y="46.2" width="7.2" height="4.6" class="new"/><rect x="209.5" y="46.2" width="7.2" height="4.6" class="new"/><rect x="124.0" y="58.0" width="85.5" height="152.0" class="cut"/><line x1="124.0" y1="206.4" x2="209.5" y2="206.4" class="cutline"/><text x="166.8" y="92.2" text-anchor="middle" class="capb" font-size="10">door</text><line x1="124.0" y1="39.0" x2="124.0" y2="19.8" class="ext"/><line x1="209.5" y1="39.0" x2="209.5" y2="19.8" class="ext"/><line x1="124.0" y1="23.8" x2="209.5" y2="23.8" class="dim" marker-start="url(#wall4-m)" marker-end="url(#wall4-m)"/><rect x="104.3" y="5.3" width="125.0" height="16.0" rx="3" class="pill"/><text x="166.8" y="17.3" text-anchor="middle" class="dimt" font-size="11">45 cm rough opening</text><line x1="116.8" y1="210.0" x2="44.6" y2="210.0" class="ext"/><line x1="116.8" y1="58.0" x2="44.6" y2="58.0" class="ext"/><line x1="48.6" y1="210.0" x2="48.6" y2="58.0" class="dim" marker-start="url(#wall4-m)" marker-end="url(#wall4-m)"/><rect x="5.8" y="126.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="25.2" y="138.0" text-anchor="middle" class="dimt" font-size="11">80 cm</text><line x1="135.4" y1="202.8" x2="135.4" y2="58.0" class="dim" marker-start="url(#wall4-m)" marker-end="url(#wall4-m)"/><rect x="139.4" y="122.9" width="64.0" height="15.0" rx="3" class="pill"/><text x="171.4" y="134.0" text-anchor="middle" class="dimt" font-size="10">jacks 76.2</text><line x1="193.0" y1="54.4" x2="284.2" y2="65.6" class="lead"/><circle cx="193.0" cy="54.4" r="2.2" class="leaddot"/><text x="287.2" y="69.6" text-anchor="start" class="note" font-size="10">header 52.6 cm on the</text><text x="287.2" y="81.6" text-anchor="start" class="note" font-size="10">jacks, underside at 80 cm</text><line x1="213.1" y1="48.5" x2="284.2" y2="31.4" class="lead"/><circle cx="213.1" cy="48.5" r="2.2" class="leaddot"/><text x="287.2" y="35.4" text-anchor="start" class="note" font-size="10">2.4 cm packers</text><line x1="193.0" y1="206.4" x2="136.0" y2="232.8" class="lead"/><circle cx="193.0" cy="206.4" r="2.2" class="leaddot"/><text x="139.0" y="236.8" text-anchor="start" class="note" font-size="10">saw this piece out after the wall is up</text></svg><!-- /diagram:wall4 --><figcaption>Front wall seen from outside. The bottom plate stays in the opening until the wall is standing.</figcaption></figure>
+        <div>
+          <h4><span>3d</span> Front wall with the door opening</h4>
+          <ol>
+            <li>Cut two 112.4 cm plates, two 82.4 cm end studs, two 76.2 cm jack studs, one 52.6 cm header and two 2.4 cm packers.</li>
+            <li>Fix the end studs. Mark a 45 cm opening centred on the plates, 33.7 cm in from each end.</li>
+            <li>Fix a jack stud on each side of the opening, standing on the bottom plate.</li>
+            <li>Lay the header across the jack tops so its underside is at 80 cm. Fit a packer above each jack and screw down through the top plate into the header.</li>
+          </ol>
+          <div class="tip">Cut the bottom plate out of the door opening <i>after</i> the wall is standing, so the frame stays rigid while you move it.</div>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 3 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="4">
+    <div class="n">4</div>
+    <div>
+      <h3>Raise and join the walls</h3>
+      <div class="meta">About 1.5 hours, two people</div>
+      <div class="sub">
+        <figure><!-- diagram:wall5 --><svg class="dg" viewBox="28 -5 367 316" role="img" aria-label="Plan view at plate level: the four walls standing on the deck in order, room 120 by 80 cm"><defs><marker id="wall5-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="60.0" width="204.0" height="204.0" class="ghost"/><rect x="66.5" y="60.0" width="191.1" height="6.5" class="new"/><rect x="60.0" y="60.0" width="6.5" height="136.0" class="new"/><rect x="257.5" y="60.0" width="6.5" height="136.0" class="new"/><rect x="66.5" y="189.5" width="57.3" height="6.5" class="new"/><rect x="200.2" y="189.5" width="57.3" height="6.5" class="new"/><rect x="123.8" y="189.5" width="76.5" height="6.5" class="cut"/><rect x="60.0" y="89.8" width="6.5" height="76.5" class="cut"/><circle cx="63.2" cy="63.2" r="2" class="screw"/><circle cx="260.8" cy="63.2" r="2" class="screw"/><circle cx="63.2" cy="192.8" r="2" class="screw"/><circle cx="260.8" cy="192.8" r="2" class="screw"/><circle cx="162.0" cy="44.7" r="8.5" class="numc"/><text x="162.0" y="48.7" text-anchor="middle" class="numt" font-size="11">1</text><circle cx="43.0" cy="128.0" r="8.5" class="numc"/><text x="43.0" y="132.0" text-anchor="middle" class="numt" font-size="11">2</text><circle cx="281.0" cy="128.0" r="8.5" class="numc"/><text x="281.0" y="132.0" text-anchor="middle" class="numt" font-size="11">3</text><circle cx="162.0" cy="177.3" r="8.5" class="numc"/><text x="162.0" y="181.3" text-anchor="middle" class="numt" font-size="11">4</text><text x="162.0" y="128.0" text-anchor="middle" class="capb" font-size="11">ROOM 120 × 80</text><text x="162.0" y="145.0" text-anchor="middle" class="cap" font-size="10">back 1 · sides 2 3 · front 4</text><text x="162.0" y="235.1" text-anchor="middle" class="capb" font-size="11">PORCH 120 × 40</text><text x="162.0" y="209.6" text-anchor="middle" class="cap" font-size="10">door</text><text x="73.6" y="128.0" text-anchor="start" class="cap" font-size="9">window</text><line x1="60.0" y1="56.6" x2="60.0" y2="15.2" class="ext"/><line x1="264.0" y1="56.6" x2="264.0" y2="15.2" class="ext"/><line x1="60.0" y1="19.2" x2="264.0" y2="19.2" class="dim" marker-start="url(#wall5-m)" marker-end="url(#wall5-m)"/><rect x="114.9" y="0.7" width="94.2" height="16.0" rx="3" class="pill"/><text x="162.0" y="12.7" text-anchor="middle" class="dimt" font-size="11">120 cm outside</text><line x1="267.4" y1="60.0" x2="307.1" y2="60.0" class="ext"/><line x1="267.4" y1="196.0" x2="307.1" y2="196.0" class="ext"/><line x1="303.1" y1="60.0" x2="303.1" y2="196.0" class="dim" marker-start="url(#wall5-m)" marker-end="url(#wall5-m)"/><rect x="307.1" y="120.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="326.5" y="132.0" text-anchor="middle" class="dimt" font-size="11">80 cm</text><line x1="267.4" y1="196.0" x2="307.1" y2="196.0" class="ext"/><line x1="267.4" y1="264.0" x2="307.1" y2="264.0" class="ext"/><line x1="303.1" y1="196.0" x2="303.1" y2="264.0" class="dim" marker-start="url(#wall5-m)" marker-end="url(#wall5-m)"/><rect x="307.1" y="222.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="326.5" y="234.0" text-anchor="middle" class="dimt" font-size="11">40 cm</text><line x1="260.8" y1="192.8" x2="179.0" y2="298.0" class="lead"/><circle cx="260.8" cy="192.8" r="2.2" class="leaddot"/><text x="182.0" y="302.0" text-anchor="start" class="note" font-size="10">corners: 4 × 50 mm screws every 25 cm</text></svg><!-- /diagram:wall5 --><figcaption>Seen from above at plate height. The numbers show the order to stand the walls.</figcaption></figure>
+        <div>
+          <h4><span>4a</span> Stand the walls in order</h4>
+          <ol>
+            <li><b>Back wall (1):</b> stand it flush with the back edge of the deck and centred between the sides. Brace it with a scrap board, check plumb, and screw the bottom plate into the deck and rim joist every 30 cm with 5 × 80 mm screws.</li>
+            <li><b>Left side wall (2):</b> stand it against the back wall's end, flush with the deck's left edge. Screw its end stud into the back wall's end stud every 25 cm with 4 × 50 mm screws.</li>
+            <li><b>Right side wall (3):</b> repeat on the right.</li>
+            <li><b>Front wall (4):</b> stand it between the side walls with its front face on the 80 cm pencil line. Screw its end studs to the side-wall studs and the bottom plate to the deck.</li>
+            <li>Check the outside measures 120 × 80 cm and the room's diagonals across the top plates are equal. Then remove the temporary battens.</li>
+            <li>Saw out the bottom plate across the door opening.</li>
+          </ol>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 4 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="5" id="step-pillars">
+    <div class="n">5</div>
+    <div>
+      <h3>Set the porch pillars and beams</h3>
+      <div class="meta">About 1.5 hours</div>
+      <div class="sub">
+        <figure><!-- diagram:post1 --><svg class="dg" viewBox="13 0 343 291" role="img" aria-label="Front elevation: two 70 by 70 mm posts, 90 cm tall, fixed at the front corners of the deck"><defs><marker id="post1-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="50.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="155.0" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="259.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="60.0" y="213.4" width="228.0" height="16.9" class="wood"/><rect x="60.0" y="210.0" width="228.0" height="3.4" class="ply"/><rect x="60.0" y="39.0" width="228.0" height="171.0" class="ghost"/><rect x="131.2" y="58.0" width="85.5" height="152.0" class="ghost"/><text x="174.0" y="134.0" text-anchor="middle" class="cap" font-size="10">front wall (behind)</text><rect x="60.0" y="39.0" width="13.3" height="171.0" class="new"/><rect x="274.7" y="39.0" width="13.3" height="171.0" class="new"/><polyline points="80.9,210.0 73.3,210.0 73.3,202.4" class="metal"/><polyline points="267.1,210.0 274.7,210.0 274.7,202.4" class="metal"/><line x1="66.7" y1="230.9" x2="66.7" y2="202.4" class="screwline"/><line x1="281.4" y1="230.9" x2="281.4" y2="202.4" class="screwline"/><line x1="50.5" y1="206.2" x2="50.5" y2="42.8" class="plumb"/><text x="46.7" y="124.5" text-anchor="end" class="note" font-size="10">plumb</text><line x1="60.0" y1="39.0" x2="60.0" y2="19.8" class="ext"/><line x1="288.0" y1="39.0" x2="288.0" y2="19.8" class="ext"/><line x1="60.0" y1="23.8" x2="288.0" y2="23.8" class="dim" marker-start="url(#post1-m)" marker-end="url(#post1-m)"/><rect x="44.0" y="6.3" width="260.0" height="15.0" rx="3" class="pill"/><text x="174.0" y="17.4" text-anchor="middle" class="dimt" font-size="10">posts flush with the deck edges, 120 cm apart</text><line x1="288.0" y1="210.0" x2="311.0" y2="210.0" class="ext"/><line x1="288.0" y1="39.0" x2="311.0" y2="39.0" class="ext"/><line x1="307.0" y1="210.0" x2="307.0" y2="39.0" class="dim" marker-start="url(#post1-m)" marker-end="url(#post1-m)"/><rect x="311.0" y="116.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="330.4" y="128.5" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="60.0" y1="230.9" x2="60.0" y2="259.6" class="ext"/><line x1="73.3" y1="230.9" x2="73.3" y2="259.6" class="ext"/><line x1="60.0" y1="255.6" x2="73.3" y2="255.6" class="dim" marker-start="url(#post1-m)" marker-end="url(#post1-m)"/><rect x="59.9" y="258.1" width="13.6" height="15.0" rx="3" class="pill"/><text x="66.7" y="269.2" text-anchor="middle" class="dimt" font-size="10">7</text><line x1="77.1" y1="206.2" x2="113.2" y2="168.2" class="lead"/><circle cx="77.1" cy="206.2" r="2.2" class="leaddot"/><text x="116.2" y="172.2" text-anchor="start" class="note" font-size="10">50 mm angle bracket</text><text x="116.2" y="184.2" text-anchor="start" class="note" font-size="10">on two faces</text><line x1="281.4" y1="227.1" x2="117.0" y2="278.4" class="lead"/><circle cx="281.4" cy="227.1" r="2.2" class="leaddot"/><text x="120.0" y="282.4" text-anchor="start" class="note" font-size="10">5 × 80 mm screw up through the rim</text></svg><!-- /diagram:post1 --><figcaption>Seen from the front. The pillars stand at the two front corners of the deck.</figcaption></figure>
+        <div>
+          <h4><span>5a</span> Stand the corner pillars</h4>
+          <ol>
+            <li>Cut both 70 × 70 mm posts to exactly 90 cm, the same height as the walls.</li>
+            <li>Cut a notch 3.8 cm deep and 8.9 cm tall in the front face of each post top. This is where the front beam sits (see 5b).</li>
+            <li>Stand each post at a front corner, flush with the front and side edges of the deck.</li>
+            <li>Check it is plumb on two adjacent faces with a spirit level.</li>
+            <li>Fix two 50 mm angle brackets to the deck on the inner faces, then drive a 5 × 80 mm screw up from below through the rim joist into the post.</li>
+            <li>Add a temporary diagonal brace to hold it plumb.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:post2 --><svg class="dg" viewBox="43 -1 299 328" role="img" aria-label="Front elevation: the 120 cm front beam sits in notches in the post tops, top face at 90 cm"><defs><marker id="post2-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="50.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="155.0" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="259.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="60.0" y="213.4" width="228.0" height="16.9" class="wood"/><rect x="60.0" y="210.0" width="228.0" height="3.4" class="ply"/><rect x="60.0" y="39.0" width="228.0" height="171.0" class="ghost"/><rect x="131.2" y="58.0" width="85.5" height="152.0" class="ghost"/><text x="174.0" y="134.0" text-anchor="middle" class="cap" font-size="10">front wall (behind)</text><rect x="60.0" y="39.0" width="13.3" height="171.0" class="wood"/><rect x="274.7" y="39.0" width="13.3" height="171.0" class="wood"/><rect x="60.0" y="39.0" width="228.0" height="16.9" class="new"/><circle cx="66.7" cy="51.3" r="1.6" class="screw"/><circle cx="66.7" cy="43.8" r="1.6" class="screw"/><circle cx="281.4" cy="51.3" r="1.6" class="screw"/><circle cx="281.4" cy="43.8" r="1.6" class="screw"/><line x1="60.0" y1="39.0" x2="60.0" y2="19.8" class="ext"/><line x1="288.0" y1="39.0" x2="288.0" y2="19.8" class="ext"/><line x1="60.0" y1="23.8" x2="288.0" y2="23.8" class="dim" marker-start="url(#post2-m)" marker-end="url(#post2-m)"/><rect x="77.6" y="5.3" width="192.8" height="16.0" rx="3" class="pill"/><text x="174.0" y="17.3" text-anchor="middle" class="dimt" font-size="11">front beam 2×4 on edge, 120 cm</text><line x1="288.0" y1="55.9" x2="311.0" y2="55.9" class="ext"/><line x1="288.0" y1="39.0" x2="311.0" y2="39.0" class="ext"/><line x1="307.0" y1="55.9" x2="307.0" y2="39.0" class="dim" marker-start="url(#post2-m)" marker-end="url(#post2-m)"/><rect x="311.0" y="40.0" width="24.8" height="15.0" rx="3" class="pill"/><text x="323.4" y="51.1" text-anchor="middle" class="dimt" font-size="10">8.9</text><line x1="117.0" y1="47.6" x2="86.6" y2="88.4" class="lead"/><circle cx="117.0" cy="47.6" r="2.2" class="leaddot"/><text x="89.6" y="92.4" text-anchor="start" class="note" font-size="10">top face level with the</text><text x="89.6" y="104.4" text-anchor="start" class="note" font-size="10">wall plates at 90 cm</text><line x1="281.4" y1="51.3" x2="269.0" y2="88.4" class="lead"/><circle cx="281.4" cy="51.3" r="2.2" class="leaddot"/><text x="266.0" y="92.4" text-anchor="end" class="note" font-size="10">2 × 5 × 80 mm</text><text x="266.0" y="104.4" text-anchor="end" class="note" font-size="10">screws per post</text><rect x="48.6" y="255.6" width="250" height="66" rx="6" class="inset"/><text x="56.6" y="271.6" text-anchor="start" class="capb" font-size="10">Notch each post top: 3.8 deep × 8.9 cm</text><text x="56.6" y="285.6" text-anchor="start" class="note" font-size="10">on the front face, so the beam sits flush.</text><text x="56.6" y="299.6" text-anchor="start" class="note" font-size="10">Side view: post (left), beam (orange)</text><polygon points="248.6,315.6 264.0,315.6 264.0,286.8 255.6,286.8 255.6,267.2 248.6,267.2" class="wood"/><rect x="255.6" y="267.2" width="8.4" height="19.6" class="new"/></svg><!-- /diagram:post2 --><figcaption>Seen from the front. The beam's top face is level with the post tops and wall plates.</figcaption></figure>
+        <div>
+          <h4><span>5b</span> Fit the front beam</h4>
+          <ol>
+            <li>Cut a 2×4 at 120 cm.</li>
+            <li>Lift it on edge into the two post notches. Its ends are flush with the outer faces of the posts.</li>
+            <li>Lay a level across from the beam to the front wall's top plate. Both must be at 90 cm; plane or pack the notch if not.</li>
+            <li>Fix it with two 5 × 80 mm screws into each post.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:post3 --><svg class="dg" viewBox="-0 0 370 279" role="img" aria-label="Side elevation: a 2 by 4 side beam runs from the front wall to the post, top level with the wall plate"><defs><marker id="post3-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="50.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="155.0" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="259.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="60.0" y="213.4" width="228.0" height="16.9" class="wood"/><rect x="60.0" y="210.0" width="228.0" height="3.4" class="ply"/><rect x="60.0" y="39.0" width="152.0" height="171.0" class="ghost"/><rect x="93.2" y="46.2" width="85.5" height="59.3" class="ghost"/><text x="136.0" y="153.0" text-anchor="middle" class="cap" font-size="10">left side wall</text><rect x="60.0" y="39.0" width="152.0" height="7.2" class="wood"/><rect x="204.8" y="39.0" width="7.2" height="171.0" class="wood"/><polygon points="274.7,210.0 288.0,210.0 288.0,55.9 280.8,55.9 280.8,39.0 274.7,39.0" class="wood"/><rect x="280.8" y="39.0" width="7.2" height="16.9" class="wood"/><rect x="212.0" y="39.0" width="62.7" height="16.9" class="new"/><polyline points="219.6,55.9 212.0,55.9 212.0,48.3" class="metal"/><polyline points="267.1,55.9 274.7,55.9 274.7,48.3" class="metal"/><line x1="274.7" y1="99.8" x2="223.4" y2="210.0" class="brace"/><text x="63.8" y="198.6" text-anchor="start" class="cap" font-size="9">BACK</text><text x="284.2" y="198.6" text-anchor="end" class="cap" font-size="9">FRONT</text><line x1="212.0" y1="39.0" x2="212.0" y2="19.8" class="ext"/><line x1="274.7" y1="39.0" x2="274.7" y2="19.8" class="ext"/><line x1="212.0" y1="23.8" x2="274.7" y2="23.8" class="dim" marker-start="url(#post3-m)" marker-end="url(#post3-m)"/><rect x="191.8" y="6.3" width="103.2" height="15.0" rx="3" class="pill"/><text x="243.3" y="17.4" text-anchor="middle" class="dimt" font-size="10">33 cm, cut to fit</text><line x1="212.0" y1="230.9" x2="212.0" y2="259.6" class="ext"/><line x1="288.0" y1="230.9" x2="288.0" y2="259.6" class="ext"/><line x1="212.0" y1="255.6" x2="288.0" y2="255.6" class="dim" marker-start="url(#post3-m)" marker-end="url(#post3-m)"/><rect x="215.2" y="258.1" width="69.6" height="15.0" rx="3" class="pill"/><text x="250.0" y="269.2" text-anchor="middle" class="dimt" font-size="10">porch 40 cm</text><line x1="60.0" y1="210.0" x2="44.6" y2="210.0" class="ext"/><line x1="60.0" y1="39.0" x2="44.6" y2="39.0" class="ext"/><line x1="48.6" y1="210.0" x2="48.6" y2="39.0" class="dim" marker-start="url(#post3-m)" marker-end="url(#post3-m)"/><rect x="5.8" y="116.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="25.2" y="128.5" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="242.4" y1="55.9" x2="193.0" y2="84.6" class="lead"/><circle cx="242.4" cy="55.9" r="2.2" class="leaddot"/><text x="190.0" y="88.6" text-anchor="end" class="note" font-size="10">side beam 2×4 on edge,</text><text x="190.0" y="100.6" text-anchor="end" class="note" font-size="10">bracket at each end</text><line x1="251.9" y1="156.8" x2="310.8" y2="141.6" class="lead"/><circle cx="251.9" cy="156.8" r="2.2" class="leaddot"/><text x="313.8" y="145.6" text-anchor="start" class="note" font-size="10">temporary</text><text x="313.8" y="157.6" text-anchor="start" class="note" font-size="10">brace</text></svg><!-- /diagram:post3 --><figcaption>Seen from the left. The side beam ties the pillar back to the house.</figcaption></figure>
+        <div>
+          <h4><span>5c</span> Fit the two side beams</h4>
+          <ol>
+            <li>Measure from the front face of the side wall to the back face of the post, about 33 cm, and cut two pieces of 2×4.</li>
+            <li>Fit each one on edge in line with the side wall, top face at 90 cm, level with the side wall's top plate.</li>
+            <li>Fix it with a 50 mm angle bracket at each end: one into the side wall's end stud, one into the post.</li>
+            <li>Leave the temporary braces on until the roof is framed.</li>
+          </ol>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 5 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="6" id="step-roof">
+    <div class="n">6</div>
+    <div>
+      <h3>Frame the roof</h3>
+      <div class="meta">About 3 hours</div>
+      <div class="sub">
+        <figure><!-- diagram:roof1 --><svg class="dg" viewBox="-39 -14 428 243" role="img" aria-label="Pattern rafter: 2 by 2, 27 degree plumb cuts, birdsmouth notch on the wall plate, 10 cm overhang"><defs><marker id="roof1-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="255.8" y="144.2" width="12.2" height="39.0" class="ghost"/><rect x="69.9" y="22.4" width="12.2" height="28.5" class="wood"/><rect x="255.8" y="132.0" width="12.2" height="12.2" class="wood"/><polygon points="82.1,25.4 300.0,134.4 300.0,148.0 268.0,132.0 255.8,132.0 255.8,125.9 82.1,39.0" class="new"/><line x1="268.0" y1="132.0" x2="312.8" y2="132.0" class="ext"/><path d="M306.4,132.0 A38.4,38.4 0 0 1 302.3,149.2" class="dimarc"/><text x="309.6" y="151.2" text-anchor="start" class="dimt" font-size="11">27°</text><text x="178.4" y="67.2" text-anchor="middle" class="note" font-size="10" transform="rotate(26.6 178.4 67.2)">cut from 78 cm stock</text><line x1="76.0" y1="68.0" x2="76.0" y2="168.0" class="ext"/><line x1="268.0" y1="132.0" x2="268.0" y2="168.0" class="ext"/><line x1="76.0" y1="164.0" x2="268.0" y2="164.0" class="dim" marker-start="url(#roof1-m)" marker-end="url(#roof1-m)"/><rect x="142.8" y="166.5" width="58.4" height="15.0" rx="3" class="pill"/><text x="172.0" y="177.6" text-anchor="middle" class="dimt" font-size="10">run 60 cm</text><line x1="268.0" y1="132.0" x2="268.0" y2="168.0" class="ext"/><line x1="300.0" y1="148.0" x2="300.0" y2="168.0" class="ext"/><line x1="268.0" y1="164.0" x2="300.0" y2="164.0" class="dim" marker-start="url(#roof1-m)" marker-end="url(#roof1-m)"/><rect x="274.4" y="166.5" width="19.2" height="15.0" rx="3" class="pill"/><text x="284.0" y="177.6" text-anchor="middle" class="dimt" font-size="10">10</text><line x1="76.0" y1="132.0" x2="40.0" y2="132.0" class="ext"/><line x1="76.0" y1="36.0" x2="40.0" y2="36.0" class="ext"/><line x1="44.0" y1="132.0" x2="44.0" y2="36.0" class="dim" marker-start="url(#roof1-m)" marker-end="url(#roof1-m)"/><rect x="-7.2" y="76.5" width="47.2" height="15.0" rx="3" class="pill"/><text x="16.4" y="87.6" text-anchor="middle" class="dimt" font-size="10">rise 30</text><line x1="82.1" y1="32.6" x2="95.2" y2="-2.4" class="lead"/><circle cx="82.1" cy="32.6" r="2.2" class="leaddot"/><text x="98.2" y="1.6" text-anchor="start" class="note" font-size="10">plumb cut at the ridge (27°)</text><line x1="300.0" y1="141.6" x2="261.6" y2="84.0" class="lead"/><circle cx="300.0" cy="141.6" r="2.2" class="leaddot"/><text x="264.6" y="88.0" text-anchor="start" class="note" font-size="10">plumb cut at the tail</text><line x1="260.0" y1="133.6" x2="300.0" y2="215.2" class="lead"/><circle cx="260.0" cy="133.6" r="2.2" class="leaddot"/><text x="297.0" y="219.2" text-anchor="end" class="note" font-size="10">birdsmouth: 3.8 cm seat, 1.9 cm heel, sits on the 2×2 plate</text></svg><!-- /diagram:roof1 --><figcaption>One rafter seen from the gable end. Every rafter is a copy of this one.</figcaption></figure>
+        <div>
+          <h4><span>6a</span> Make a pattern rafter</h4>
+          <ol>
+            <li>Take a 78 cm length of 2×2. Set a speed square or mitre saw to 27° (a 1:2 slope).</li>
+            <li>Make a plumb cut at the top end; this end butts against the ridge.</li>
+            <li>Measure 60.7 cm along the bottom edge from the top cut (54.3 cm level distance) and mark the birdsmouth: a 3.8 cm level seat and a 1.9 cm plumb heel, so it sits on the 2×2 top plate.</li>
+            <li>Cut the tail with a second plumb cut 10 cm beyond the outside of the wall.</li>
+            <li>Test it on both sides of the house against a scrap ridge held at the right height. When it fits, trace it onto nine more pieces.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:roof2 --><svg class="dg" viewBox="2 -14 369 308" role="img" aria-label="Gable end: 12 mm plywood triangle, 120 cm base and 30 cm high, with the ridge board notched into the apex"><defs><marker id="roof2-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="52.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="140.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="228.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="60.0" y="234.9" width="192.0" height="14.2" class="wood"/><rect x="60.0" y="232.0" width="192.0" height="2.9" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="144.0" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="6.1" class="wood"/><text x="156.0" y="164.8" text-anchor="middle" class="cap" font-size="10">back wall</text><polygon points="60.0,88.0 252.0,88.0 156.0,40.0" class="new"/><rect x="153.0" y="33.2" width="6.1" height="14.2" class="new"/><line x1="60.0" y1="249.6" x2="60.0" y2="274.4" class="ext"/><line x1="252.0" y1="249.6" x2="252.0" y2="274.4" class="ext"/><line x1="60.0" y1="270.4" x2="252.0" y2="270.4" class="dim" marker-start="url(#roof2-m)" marker-end="url(#roof2-m)"/><rect x="133.5" y="272.9" width="45.0" height="16.0" rx="3" class="pill"/><text x="156.0" y="284.9" text-anchor="middle" class="dimt" font-size="11">120 cm</text><line x1="60.0" y1="232.0" x2="46.4" y2="232.0" class="ext"/><line x1="60.0" y1="88.0" x2="46.4" y2="88.0" class="ext"/><line x1="50.4" y1="232.0" x2="50.4" y2="88.0" class="dim" marker-start="url(#roof2-m)" marker-end="url(#roof2-m)"/><rect x="7.6" y="152.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="27.0" y="164.0" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="156.0" y1="88.0" x2="46.4" y2="88.0" class="ext"/><line x1="156.0" y1="40.0" x2="46.4" y2="40.0" class="ext"/><line x1="50.4" y1="88.0" x2="50.4" y2="40.0" class="dim" marker-start="url(#roof2-m)" marker-end="url(#roof2-m)"/><rect x="7.6" y="56.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="27.0" y="68.0" text-anchor="middle" class="dimt" font-size="11">30 cm</text><line x1="159.2" y1="232.0" x2="272.0" y2="232.0" class="ext"/><line x1="159.2" y1="40.0" x2="272.0" y2="40.0" class="ext"/><line x1="268.0" y1="232.0" x2="268.0" y2="40.0" class="dim" marker-start="url(#roof2-m)" marker-end="url(#roof2-m)"/><rect x="272.0" y="128.5" width="69.6" height="15.0" rx="3" class="pill"/><text x="306.8" y="139.6" text-anchor="middle" class="dimt" font-size="10">apex 120 cm</text><text x="156.0" y="75.2" text-anchor="middle" class="onnew" font-size="10">gable 12 mm ply</text><line x1="156.0" y1="36.4" x2="188.0" y2="-1.6" class="lead"/><circle cx="156.0" cy="36.4" r="2.2" class="leaddot"/><text x="191.0" y="2.4" text-anchor="start" class="note" font-size="10">ridge 2×4 on edge, 140 cm long,</text><text x="191.0" y="14.4" text-anchor="start" class="note" font-size="10">in a 3.8 × 4.7 cm notch</text><line x1="100.0" y1="84.8" x2="50.4" y2="120.0" class="lead"/><circle cx="100.0" cy="84.8" r="2.2" class="leaddot"/><text x="53.4" y="124.0" text-anchor="start" class="note" font-size="10">one on the back wall plate,</text><text x="53.4" y="136.0" text-anchor="start" class="note" font-size="10">one on the front beam</text></svg><!-- /diagram:roof2 --><figcaption>The gable triangle at the back wall. An identical one sits on the porch front beam.</figcaption></figure>
+        <div>
+          <h4><span>6b</span> Fit the gables and the ridge</h4>
+          <ol>
+            <li>Cut two triangles from 12 mm ply: 120 cm base, 30 cm high, apex centred.</li>
+            <li>Cut a 3.8 cm wide, 4.7 cm deep notch at each apex for the ridge board.</li>
+            <li>Screw one triangle to the back wall's top plate and the other to the front beam, flush with their outer faces.</li>
+            <li>Cut the ridge from 2×4 at 140 cm. Drop it on edge into both notches so it overhangs 10 cm at the front and back. Screw through each gable into it.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:roof3 --><svg class="dg" viewBox="5 -14 410 308" role="img" aria-label="Gable end: one rafter pair on the ridge and the wall plates with a 10 cm eave overhang each side"><defs><marker id="roof3-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="52.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="140.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="228.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="60.0" y="234.9" width="192.0" height="14.2" class="wood"/><rect x="60.0" y="232.0" width="192.0" height="2.9" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="144.0" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="6.1" class="wood"/><text x="156.0" y="164.8" text-anchor="middle" class="cap" font-size="10">back wall</text><polygon points="60.0,88.0 252.0,88.0 156.0,40.0" class="wood"/><polygon points="153.0,34.7 44.0,89.2 44.0,96.0 60.0,88.0 66.1,88.0 66.1,85.0 153.0,41.5" class="new"/><polygon points="159.0,34.7 268.0,89.2 268.0,96.0 252.0,88.0 245.9,88.0 245.9,85.0 159.0,41.5" class="new"/><rect x="153.0" y="33.2" width="6.1" height="14.2" class="wood"/><rect x="153.0" y="33.2" width="6.1" height="14.2" class="wood"/><polyline points="240.3,88.0 245.9,88.0 245.9,82.4" class="metal"/><polyline points="71.7,88.0 66.1,88.0 66.1,82.4" class="metal"/><line x1="44.0" y1="97.6" x2="44.0" y2="274.4" class="ext"/><line x1="268.0" y1="97.6" x2="268.0" y2="274.4" class="ext"/><line x1="44.0" y1="270.4" x2="268.0" y2="270.4" class="dim" marker-start="url(#roof3-m)" marker-end="url(#roof3-m)"/><rect x="98.8" y="272.9" width="114.4" height="15.0" rx="3" class="pill"/><text x="156.0" y="284.0" text-anchor="middle" class="dimt" font-size="10">140 cm tail to tail</text><line x1="252.0" y1="88.0" x2="252.0" y2="111.2" class="ext"/><line x1="268.0" y1="96.0" x2="268.0" y2="111.2" class="ext"/><line x1="252.0" y1="107.2" x2="268.0" y2="107.2" class="dim" marker-start="url(#roof3-m)" marker-end="url(#roof3-m)"/><rect x="250.4" y="109.7" width="19.2" height="15.0" rx="3" class="pill"/><text x="260.0" y="120.8" text-anchor="middle" class="dimt" font-size="10">10</text><line x1="252.0" y1="232.0" x2="288.0" y2="232.0" class="ext"/><line x1="252.0" y1="88.0" x2="288.0" y2="88.0" class="ext"/><line x1="284.0" y1="232.0" x2="284.0" y2="88.0" class="dim" marker-start="url(#roof3-m)" marker-end="url(#roof3-m)"/><rect x="288.0" y="152.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="307.4" y="164.0" text-anchor="middle" class="dimt" font-size="11">90 cm</text><line x1="220.0" y1="68.8" x2="248.8" y2="8.0" class="lead"/><circle cx="220.0" cy="68.8" r="2.2" class="leaddot"/><text x="251.8" y="12.0" text-anchor="start" class="note" font-size="10">2×2 rafters, birdsmouth</text><text x="251.8" y="24.0" text-anchor="start" class="note" font-size="10">on the plate, bracket inside</text><line x1="156.0" y1="36.4" x2="136.8" y2="-1.6" class="lead"/><circle cx="156.0" cy="36.4" r="2.2" class="leaddot"/><text x="133.8" y="2.4" text-anchor="end" class="note" font-size="10">screw through the</text><text x="133.8" y="14.4" text-anchor="end" class="note" font-size="10">ridge into each rafter</text></svg><!-- /diagram:roof3 --><figcaption>A rafter pair in place. The birdsmouth seats on the plate and the top cut presses against the ridge.</figcaption></figure>
+        <div>
+          <h4><span>6c</span> Fix the first rafter pair</h4>
+          <ol>
+            <li>Hold a rafter with its top cut against the ridge and its birdsmouth on the wall plate.</li>
+            <li>Screw through the ridge into the rafter's top end with two 4 × 50 mm screws.</li>
+            <li>Fix the birdsmouth to the plate with a 50 mm angle bracket on the inside face.</li>
+            <li>Fix the matching rafter on the other side, opposite the first one.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:roof4 --><svg class="dg" viewBox="8 -1 386 334" role="img" aria-label="Roof plan: 140 cm ridge, five rafter pairs about 35 cm apart, fascia on the eaves and barge boards on the gables"><defs><marker id="roof4-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="60.0" y="60.0" width="204.0" height="204.0" class="ghost"/><rect x="60.0" y="60.0" width="204.0" height="136.0" class="ghost"/><rect x="60.0" y="60.0" width="204.0" height="2.0" class="wood"/><rect x="60.0" y="262.0" width="204.0" height="2.0" class="wood"/><rect x="158.8" y="43.0" width="6.5" height="238.0" class="wood"/><rect x="43.0" y="43.0" width="115.8" height="6.5" class="new"/><rect x="165.2" y="43.0" width="115.8" height="6.5" class="new"/><rect x="43.0" y="99.3" width="115.8" height="6.5" class="new"/><rect x="165.2" y="99.3" width="115.8" height="6.5" class="new"/><rect x="43.0" y="158.8" width="115.8" height="6.5" class="new"/><rect x="165.2" y="158.8" width="115.8" height="6.5" class="new"/><rect x="43.0" y="218.3" width="115.8" height="6.5" class="new"/><rect x="165.2" y="218.3" width="115.8" height="6.5" class="new"/><rect x="43.0" y="274.5" width="115.8" height="6.5" class="new"/><rect x="165.2" y="274.5" width="115.8" height="6.5" class="new"/><rect x="39.6" y="39.6" width="3.4" height="244.8" class="new2"/><rect x="281.0" y="39.6" width="3.4" height="244.8" class="new2"/><rect x="43.0" y="39.6" width="238.0" height="3.4" class="new2"/><rect x="43.0" y="281.0" width="238.0" height="3.4" class="new2"/><text x="111.0" y="131.4" text-anchor="middle" class="cap" font-size="9">room below</text><text x="111.0" y="236.8" text-anchor="middle" class="cap" font-size="9">porch below</text><circle cx="22.6" cy="46.2" r="8.5" class="numc"/><text x="22.6" y="50.2" text-anchor="middle" class="numt" font-size="11">1</text><circle cx="22.6" cy="102.5" r="8.5" class="numc"/><text x="22.6" y="106.5" text-anchor="middle" class="numt" font-size="11">2</text><circle cx="22.6" cy="162.0" r="8.5" class="numc"/><text x="22.6" y="166.0" text-anchor="middle" class="numt" font-size="11">3</text><circle cx="22.6" cy="221.5" r="8.5" class="numc"/><text x="22.6" y="225.5" text-anchor="middle" class="numt" font-size="11">4</text><circle cx="22.6" cy="277.8" r="8.5" class="numc"/><text x="22.6" y="281.8" text-anchor="middle" class="numt" font-size="11">5</text><line x1="284.4" y1="43.0" x2="312.2" y2="43.0" class="ext"/><line x1="284.4" y1="281.0" x2="312.2" y2="281.0" class="ext"/><line x1="308.2" y1="43.0" x2="308.2" y2="281.0" class="dim" marker-start="url(#roof4-m)" marker-end="url(#roof4-m)"/><rect x="312.2" y="154.5" width="75.2" height="15.0" rx="3" class="pill"/><text x="349.8" y="165.6" text-anchor="middle" class="dimt" font-size="10">ridge 140 cm</text><line x1="46.2" y1="36.2" x2="46.2" y2="18.6" class="ext"/><line x1="102.5" y1="36.2" x2="102.5" y2="18.6" class="ext"/><line x1="46.2" y1="22.6" x2="102.5" y2="22.6" class="dim" marker-start="url(#roof4-m)" marker-end="url(#roof4-m)"/><rect x="53.6" y="5.1" width="41.6" height="15.0" rx="3" class="pill"/><text x="74.4" y="16.2" text-anchor="middle" class="dimt" font-size="10">≈35 cm</text><line x1="282.7" y1="162.0" x2="230.0" y2="308.2" class="lead"/><circle cx="282.7" cy="162.0" r="2.2" class="leaddot"/><text x="233.0" y="312.2" text-anchor="start" class="note" font-size="10">fascia on the rafter tails</text><line x1="230.0" y1="41.3" x2="192.6" y2="19.2" class="lead"/><circle cx="230.0" cy="41.3" r="2.2" class="leaddot"/><text x="195.6" y="23.2" text-anchor="start" class="note" font-size="10">barge board</text><line x1="136.5" y1="275.9" x2="39.6" y2="308.2" class="lead"/><circle cx="136.5" cy="275.9" r="2.2" class="leaddot"/><text x="42.6" y="312.2" text-anchor="start" class="note" font-size="10">pairs 1 and 5 hang over</text><text x="42.6" y="324.2" text-anchor="start" class="note" font-size="10">the 10 cm gable overhang</text></svg><!-- /diagram:roof4 --><figcaption>The roof frame seen from above, before the sheathing goes on.</figcaption></figure>
+        <div>
+          <h4><span>6d</span> Fix all five pairs and the trim</h4>
+          <ol>
+            <li>Space five pairs along the ridge at about 35 cm centres. Pairs 1 and 5 are flush with the ridge ends, over the 10 cm overhang.</li>
+            <li>Pairs 2 and 3 sit on the side wall plates. Pair 4 sits on the porch side beams.</li>
+            <li>Screw a fascia board across the rafter tails on each eave.</li>
+            <li>Screw a barge board along the sloping edges of each gable end.</li>
+            <li>Remove the temporary post braces from step 5.</li>
+          </ol>
+          <div class="warn">Roof work is awkward on a 120 cm structure. Work from the ground on all four sides, not from the deck or a chair.</div>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 6 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="7">
+    <div class="n">7</div>
+    <div>
+      <h3>Clad the walls, fit the window and counter</h3>
+      <div class="meta">About 3 hours</div>
+      <ol>
+        <li>Cut cladding panels to the outside size of each wall (side walls 80 × 90 cm, back and front 120 × 90 cm). If using tongue-and-groove boards, run them horizontally and start at the bottom.</li>
+        <li>Screw cladding to studs and plates every 20 cm with 4 × 30 mm screws. Keep the bottom edge 5 mm above the deck so rain drains.</li>
+        <li>Mark and cut the window opening from outside with a jigsaw, following the frame: 45 × 35 cm with the bottom edge at 55 cm.</li>
+        <li>Mark and cut the door opening: 45 × 80 cm.</li>
+        <li>Frame the window with white trim strips, inside and out, so the cut plywood edge is covered.</li>
+        <li>Make the counter: 55 × 18 cm top, round the front corners, and fix it under the window on two triangular brackets screwed into the window studs. Top face at 55 cm.</li>
+        <li>The gable triangles from step 6 already close the roof ends. Paint or clad over them to match the walls.</li>
+      </ol>
+      <label class="done"><input type="checkbox"> Mark step 7 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="8">
+    <div class="n">8</div>
+    <div>
+      <h3>Cover the roof</h3>
+      <div class="meta">About 2 hours</div>
+      <div class="sub">
+        <figure><!-- diagram:roof5 --><svg class="dg" viewBox="38 -36 377 330" role="img" aria-label="Gable end: 9 mm plywood on both slopes, felt laid from the eave up with 10 cm laps and a ridge cap"><defs><marker id="roof5-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="52.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="140.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="228.0" y="250.4" width="32.0" height="11.2" class="paver"/><rect x="60.0" y="234.9" width="192.0" height="14.2" class="wood"/><rect x="60.0" y="232.0" width="192.0" height="2.9" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="144.0" class="ply"/><rect x="60.0" y="88.0" width="192.0" height="6.1" class="wood"/><text x="156.0" y="164.8" text-anchor="middle" class="cap" font-size="10">back wall</text><polygon points="60.0,88.0 252.0,88.0 156.0,40.0" class="wood"/><polygon points="153.0,34.7 44.0,89.2 44.0,96.0 60.0,88.0 66.1,88.0 66.1,85.0 153.0,41.5" class="wood"/><polygon points="159.0,34.7 268.0,89.2 268.0,96.0 252.0,88.0 245.9,88.0 245.9,85.0 159.0,41.5" class="wood"/><rect x="153.0" y="33.2" width="6.1" height="14.2" class="wood"/><rect x="153.0" y="33.2" width="6.1" height="14.2" class="wood"/><polygon points="159.0,34.7 268.0,89.2 268.0,87.6 159.0,33.1" class="new"/><polyline points="268.0,86.5 159.0,32.0" class="felt"/><line x1="231.2" y1="69.2" x2="231.2" y2="64.1" class="feltlap"/><line x1="194.4" y1="50.8" x2="194.4" y2="45.7" class="feltlap"/><polygon points="153.0,34.7 44.0,89.2 44.0,87.6 153.0,33.1" class="new"/><polyline points="44.0,86.5 153.0,32.0" class="felt"/><line x1="80.8" y1="69.2" x2="80.8" y2="64.1" class="feltlap"/><line x1="117.6" y1="50.8" x2="117.6" y2="45.7" class="feltlap"/><polyline points="144.8,35.3 156.0,24.6 167.2,35.3" class="feltcap"/><line x1="44.0" y1="97.6" x2="44.0" y2="274.4" class="ext"/><line x1="268.0" y1="97.6" x2="268.0" y2="274.4" class="ext"/><line x1="44.0" y1="270.4" x2="268.0" y2="270.4" class="dim" marker-start="url(#roof5-m)" marker-end="url(#roof5-m)"/><rect x="48.4" y="272.9" width="215.2" height="15.0" rx="3" class="pill"/><text x="156.0" y="284.0" text-anchor="middle" class="dimt" font-size="10">two panels 140 × 80 cm, one per slope</text><line x1="220.0" y1="64.4" x2="248.8" y2="8.0" class="lead"/><circle cx="220.0" cy="64.4" r="2.2" class="leaddot"/><text x="251.8" y="12.0" text-anchor="start" class="note" font-size="10">9 mm ply, 4 × 30 mm screws</text><text x="251.8" y="24.0" text-anchor="start" class="note" font-size="10">every 15 cm into each rafter</text><line x1="92.0" y1="61.2" x2="47.2" y2="-1.6" class="lead"/><circle cx="92.0" cy="61.2" r="2.2" class="leaddot"/><text x="50.2" y="2.4" text-anchor="start" class="note" font-size="10">felt from the eave up,</text><text x="50.2" y="14.4" text-anchor="start" class="note" font-size="10">10 cm laps, stapled</text><line x1="156.0" y1="25.2" x2="172.0" y2="-24.0" class="lead"/><circle cx="156.0" cy="25.2" r="2.2" class="leaddot"/><text x="175.0" y="-20.0" text-anchor="start" class="note" font-size="10">cap strip folded over the ridge</text></svg><!-- /diagram:roof5 --><figcaption>Seen from the gable end. The felt overlaps like shingles so rain runs off.</figcaption></figure>
+        <div>
+          <h4><span>8a</span> Sheath and weatherproof</h4>
+          <ol>
+            <li>Cut two 9 mm ply panels at 140 × 80 cm, one for each slope.</li>
+            <li>Lay each panel with its bottom edge flush with the fascia. Screw it to every rafter and the ridge with 4 × 30 mm screws every 15 cm.</li>
+            <li>Lay roofing felt from the eave upwards. Overlap each course by 10 cm and staple it.</li>
+            <li>Fold a cap strip over the ridge, overlapping both slopes, and nail it with felt nails.</li>
+            <li>Seal the ridge and the gable edges. Alternatively, fix corrugated roofing sheets with capped screws.</li>
+            <li>Check from inside for daylight.</li>
+          </ol>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 8 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="9" id="step-porch">
+    <div class="n">9</div>
+    <div>
+      <h3>Build the porch railings</h3>
+      <div class="meta">About 2 hours</div>
+      <div class="sub">
+        <figure><!-- diagram:porch1 --><svg class="dg" viewBox="54 54 283 131" role="img" aria-label="Plan view of the porch: corner posts, intermediate posts 35 cm in from each edge, 50 cm opening, and a 33 cm railing on each side"><defs><marker id="porch1-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><polyline points="60.0,60.0 60.0,145.0 264.0,145.0 264.0,60.0" class="ghost"/><rect x="60.0" y="60.0" width="6.5" height="17.0" class="wood"/><rect x="257.5" y="60.0" width="6.5" height="17.0" class="wood"/><rect x="66.5" y="70.5" width="57.3" height="6.5" class="wood"/><rect x="200.2" y="70.5" width="57.3" height="6.5" class="wood"/><rect x="123.8" y="70.5" width="76.5" height="6.5" class="cut"/><text x="162.0" y="68.5" text-anchor="middle" class="cap" font-size="9">door</text><rect x="60.0" y="133.1" width="11.9" height="11.9" class="wood"/><rect x="252.1" y="133.1" width="11.9" height="11.9" class="wood"/><rect x="71.9" y="138.5" width="41.1" height="6.5" class="new2"/><rect x="211.0" y="138.5" width="41.1" height="6.5" class="new2"/><rect x="113.0" y="138.5" width="6.5" height="6.5" class="new"/><rect x="204.5" y="138.5" width="6.5" height="6.5" class="new"/><text x="162.0" y="88.9" text-anchor="middle" class="capb" font-size="11">PORCH 120 × 40 cm</text><rect x="60.0" y="77.0" width="6.5" height="56.1" class="new2"/><rect x="257.5" y="77.0" width="6.5" height="56.1" class="new2"/><line x1="70.2" y1="77.0" x2="70.2" y2="133.1" class="dim" marker-start="url(#porch1-m)" marker-end="url(#porch1-m)"/><rect x="74.2" y="97.5" width="75.2" height="15.0" rx="3" class="pill"/><text x="111.8" y="108.6" text-anchor="middle" class="dimt" font-size="10">side rail 33</text><line x1="60.0" y1="146.7" x2="60.0" y2="164.3" class="ext"/><line x1="119.5" y1="146.7" x2="119.5" y2="164.3" class="ext"/><line x1="60.0" y1="160.3" x2="119.5" y2="160.3" class="dim" marker-start="url(#porch1-m)" marker-end="url(#porch1-m)"/><rect x="79.6" y="162.8" width="20.3" height="16.0" rx="3" class="pill"/><text x="89.8" y="174.8" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="119.5" y1="146.7" x2="119.5" y2="164.3" class="ext"/><line x1="204.5" y1="146.7" x2="204.5" y2="164.3" class="ext"/><line x1="119.5" y1="160.3" x2="204.5" y2="160.3" class="dim" marker-start="url(#porch1-m)" marker-end="url(#porch1-m)"/><rect x="118.0" y="162.8" width="88.1" height="16.0" rx="3" class="pill"/><text x="162.0" y="174.8" text-anchor="middle" class="dimt" font-size="11">50 cm opening</text><line x1="204.5" y1="146.7" x2="204.5" y2="164.3" class="ext"/><line x1="264.0" y1="146.7" x2="264.0" y2="164.3" class="ext"/><line x1="204.5" y1="160.3" x2="264.0" y2="160.3" class="dim" marker-start="url(#porch1-m)" marker-end="url(#porch1-m)"/><rect x="224.1" y="162.8" width="20.3" height="16.0" rx="3" class="pill"/><text x="234.2" y="174.8" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="267.4" y1="77.0" x2="291.8" y2="77.0" class="ext"/><line x1="267.4" y1="145.0" x2="291.8" y2="145.0" class="ext"/><line x1="287.8" y1="77.0" x2="287.8" y2="145.0" class="dim" marker-start="url(#porch1-m)" marker-end="url(#porch1-m)"/><rect x="291.8" y="103.0" width="38.8" height="16.0" rx="3" class="pill"/><text x="311.2" y="115.0" text-anchor="middle" class="dimt" font-size="11">40 cm</text><line x1="116.3" y1="139.9" x2="131.4" y2="119.5" class="lead"/><circle cx="116.3" cy="139.9" r="2.2" class="leaddot"/><text x="134.4" y="123.5" text-anchor="start" class="note" font-size="10">2×2 post, inner face</text><text x="134.4" y="135.5" text-anchor="start" class="note" font-size="10">35 cm from the edge</text></svg><!-- /diagram:porch1 --><figcaption>The porch seen from above. Measure the intermediate posts from the outer edges of the deck.</figcaption></figure>
+        <div>
+          <h4><span>9a</span> Set out the railing posts</h4>
+          <ol>
+            <li>Along the front edge of the deck, mark 35 cm in from each side. These marks are the inner faces of the intermediate posts.</li>
+            <li>Check the gap between the two marks is 50 cm. That is the porch opening.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:porch2 --><svg class="dg" viewBox="44 33 311 247" role="img" aria-label="Front elevation: 50 cm intermediate posts with a top and bottom rail on each 35 cm section"><defs><marker id="porch2-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="50.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="155.0" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="259.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="60.0" y="213.4" width="228.0" height="16.9" class="wood"/><rect x="60.0" y="210.0" width="228.0" height="3.4" class="ply"/><rect x="60.0" y="39.0" width="228.0" height="171.0" class="ghost"/><rect x="131.2" y="58.0" width="85.5" height="152.0" class="ghost"/><text x="174.0" y="134.0" text-anchor="middle" class="cap" font-size="10">front wall (behind)</text><rect x="60.0" y="39.0" width="13.3" height="171.0" class="wood"/><rect x="274.7" y="39.0" width="13.3" height="171.0" class="wood"/><rect x="60.0" y="39.0" width="228.0" height="16.9" class="wood"/><rect x="119.3" y="115.0" width="7.2" height="95.0" class="new"/><rect x="221.5" y="115.0" width="7.2" height="95.0" class="new"/><rect x="73.3" y="193.3" width="46.0" height="7.2" class="new2"/><rect x="73.3" y="115.0" width="46.0" height="7.2" class="new2"/><rect x="228.7" y="193.3" width="46.0" height="7.2" class="new2"/><rect x="228.7" y="115.0" width="46.0" height="7.2" class="new2"/><polyline points="132.2,210.0 126.5,210.0 126.5,204.3" class="metal"/><polyline points="215.8,210.0 221.5,210.0 221.5,204.3" class="metal"/><line x1="232.5" y1="210.0" x2="311.0" y2="210.0" class="ext"/><line x1="232.5" y1="115.0" x2="311.0" y2="115.0" class="ext"/><line x1="307.0" y1="210.0" x2="307.0" y2="115.0" class="dim" marker-start="url(#porch2-m)" marker-end="url(#porch2-m)"/><rect x="311.0" y="154.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="330.4" y="166.5" text-anchor="middle" class="dimt" font-size="11">50 cm</text><line x1="60.0" y1="230.9" x2="60.0" y2="259.6" class="ext"/><line x1="126.5" y1="230.9" x2="126.5" y2="259.6" class="ext"/><line x1="60.0" y1="255.6" x2="126.5" y2="255.6" class="dim" marker-start="url(#porch2-m)" marker-end="url(#porch2-m)"/><rect x="83.1" y="258.1" width="20.3" height="16.0" rx="3" class="pill"/><text x="93.2" y="270.1" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="126.5" y1="230.9" x2="126.5" y2="259.6" class="ext"/><line x1="221.5" y1="230.9" x2="221.5" y2="259.6" class="ext"/><line x1="126.5" y1="255.6" x2="221.5" y2="255.6" class="dim" marker-start="url(#porch2-m)" marker-end="url(#porch2-m)"/><rect x="130.0" y="258.1" width="88.1" height="16.0" rx="3" class="pill"/><text x="174.0" y="270.1" text-anchor="middle" class="dimt" font-size="11">50 cm opening</text><line x1="221.5" y1="230.9" x2="221.5" y2="259.6" class="ext"/><line x1="288.0" y1="230.9" x2="288.0" y2="259.6" class="ext"/><line x1="221.5" y1="255.6" x2="288.0" y2="255.6" class="dim" marker-start="url(#porch2-m)" marker-end="url(#porch2-m)"/><rect x="244.6" y="258.1" width="20.3" height="16.0" rx="3" class="pill"/><text x="254.8" y="270.1" text-anchor="middle" class="dimt" font-size="11">35</text><line x1="96.3" y1="118.8" x2="98.0" y2="73.2" class="lead"/><circle cx="96.3" cy="118.8" r="2.2" class="leaddot"/><text x="101.0" y="77.2" text-anchor="start" class="note" font-size="10">rails 24.2 cm, top flush</text><text x="101.0" y="89.2" text-anchor="start" class="note" font-size="10">with the post, bottom 5 cm up</text><line x1="122.9" y1="153.0" x2="147.4" y2="153.0" class="lead"/><circle cx="122.9" cy="153.0" r="2.2" class="leaddot"/><text x="150.4" y="157.0" text-anchor="start" class="note" font-size="10">post 2×2 × 50 cm,</text><text x="150.4" y="169.0" text-anchor="start" class="note" font-size="10">bracket + glue</text></svg><!-- /diagram:porch2 --><figcaption>Seen from the front. Each railing section runs from a corner pillar to an intermediate post.</figcaption></figure>
+        <div>
+          <h4><span>9b</span> Fix the posts and rails</h4>
+          <ol>
+            <li>Cut two 2×2 posts at 50 cm. Glue each one on its mark, flush with the front edge, and fix it with an angle bracket on the opening side.</li>
+            <li>Measure between each corner pillar and its intermediate post, about 24 cm, and cut four rails.</li>
+            <li>Fix a bottom rail 5 cm above the deck and a top rail flush with the post top in each section, with glue and a bracket at each end.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:porch3 --><svg class="dg" viewBox="41 -6 374 374" role="img" aria-label="Close-up of one railing section: two balusters between the rails with gaps well under 9 cm"><defs><marker id="porch3-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="76.8" y="298.3" width="50.4" height="29.4" class="paver"/><rect x="186.0" y="298.3" width="50.4" height="29.4" class="paver"/><rect x="60.0" y="257.6" width="184.8" height="37.4" class="wood"/><rect x="60.0" y="250.0" width="184.8" height="7.6" class="ply"/><rect x="60.0" y="23.2" width="29.4" height="226.8" class="wood"/><text x="74.7" y="14.8" text-anchor="middle" class="cap" font-size="9">corner post</text><rect x="191.0" y="40.0" width="16.0" height="210.0" class="wood"/><rect x="89.4" y="213.0" width="101.6" height="16.0" class="wood"/><rect x="89.4" y="40.0" width="101.6" height="16.0" class="wood"/><rect x="112.6" y="56.0" width="16.0" height="157.1" class="new"/><circle cx="120.6" cy="221.0" r="1.8" class="screw"/><circle cx="120.6" cy="48.0" r="1.8" class="screw"/><rect x="151.8" y="56.0" width="16.0" height="157.1" class="new"/><circle cx="159.8" cy="221.0" r="1.8" class="screw"/><circle cx="159.8" cy="48.0" r="1.8" class="screw"/><line x1="89.4" y1="124.0" x2="112.6" y2="124.0" class="dim" marker-start="url(#porch3-m)" marker-end="url(#porch3-m)"/><rect x="88.6" y="106.5" width="24.8" height="15.0" rx="3" class="pill"/><text x="101.0" y="117.6" text-anchor="middle" class="dimt" font-size="10">5.5</text><line x1="128.6" y1="124.0" x2="151.8" y2="124.0" class="dim" marker-start="url(#porch3-m)" marker-end="url(#porch3-m)"/><rect x="127.8" y="106.5" width="24.8" height="15.0" rx="3" class="pill"/><text x="140.2" y="117.6" text-anchor="middle" class="dimt" font-size="10">5.5</text><line x1="167.8" y1="124.0" x2="191.0" y2="124.0" class="dim" marker-start="url(#porch3-m)" marker-end="url(#porch3-m)"/><rect x="167.0" y="106.5" width="24.8" height="15.0" rx="3" class="pill"/><text x="179.4" y="117.6" text-anchor="middle" class="dimt" font-size="10">5.5</text><line x1="209.1" y1="213.0" x2="236.2" y2="213.0" class="ext"/><line x1="209.1" y1="56.0" x2="236.2" y2="56.0" class="ext"/><line x1="232.2" y1="213.0" x2="232.2" y2="56.0" class="dim" marker-start="url(#porch3-m)" marker-end="url(#porch3-m)"/><rect x="236.2" y="127.0" width="103.2" height="15.0" rx="3" class="pill"/><text x="287.8" y="138.1" text-anchor="middle" class="dimt" font-size="10">balusters 37.4 cm</text><line x1="209.1" y1="250.0" x2="236.2" y2="250.0" class="ext"/><line x1="209.1" y1="229.0" x2="236.2" y2="229.0" class="ext"/><line x1="232.2" y1="250.0" x2="232.2" y2="229.0" class="dim" marker-start="url(#porch3-m)" marker-end="url(#porch3-m)"/><rect x="236.2" y="232.0" width="30.4" height="15.0" rx="3" class="pill"/><text x="251.4" y="243.1" text-anchor="middle" class="dimt" font-size="10">5 cm</text><line x1="159.8" y1="52.6" x2="232.2" y2="6.4" class="lead"/><circle cx="159.8" cy="52.6" r="2.2" class="leaddot"/><text x="235.2" y="10.4" text-anchor="start" class="note" font-size="10">screw down through the top rail</text><text x="152.4" y="359.2" text-anchor="middle" class="capb" font-size="10">gaps under 9 cm: no head entrapment</text></svg><!-- /diagram:porch3 --><figcaption>One railing section up close. Both sections are the same.</figcaption></figure>
+        <div>
+          <h4><span>9c</span> Fit the balusters</h4>
+          <ol>
+            <li>Cut four 2×2 balusters at 37.4 cm.</li>
+            <li>Fit two per section between the rails, evenly spaced. The three gaps come out at about 5.5 cm, well under the 9 cm limit.</li>
+            <li>Screw down through the top rail and up through the bottom rail into each baluster end.</li>
+            <li>Round every top edge with sandpaper or a router. Cap the post tops with small square blocks if you like.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sub">
+        <figure><!-- diagram:porch4 --><svg class="dg" viewBox="44 33 304 276" role="img" aria-label="Side elevation of the left porch side: rails from the room front wall to the corner pillar with three balusters"><defs><marker id="porch4-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dimm"/></marker></defs><rect x="50.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="155.0" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="259.5" y="231.8" width="38.0" height="13.3" class="paver"/><rect x="60.0" y="213.4" width="228.0" height="16.9" class="wood"/><rect x="60.0" y="210.0" width="228.0" height="3.4" class="ply"/><rect x="60.0" y="39.0" width="152.0" height="171.0" class="ghost"/><rect x="93.2" y="46.2" width="85.5" height="59.3" class="ghost"/><text x="136.0" y="183.4" text-anchor="middle" class="cap" font-size="10">left side wall</text><rect x="204.8" y="39.0" width="7.2" height="171.0" class="wood"/><rect x="274.7" y="39.0" width="13.3" height="171.0" class="wood"/><rect x="212.0" y="39.0" width="62.7" height="16.9" class="wood"/><rect x="212.0" y="193.3" width="62.7" height="7.2" class="new2"/><rect x="212.0" y="115.0" width="62.7" height="7.2" class="new2"/><rect x="222.3" y="122.2" width="7.2" height="71.1" class="new"/><circle cx="225.9" cy="196.9" r="1.6" class="screw"/><circle cx="225.9" cy="118.6" r="1.6" class="screw"/><rect x="239.7" y="122.2" width="7.2" height="71.1" class="new"/><circle cx="243.4" cy="196.9" r="1.6" class="screw"/><circle cx="243.4" cy="118.6" r="1.6" class="screw"/><rect x="257.2" y="122.2" width="7.2" height="71.1" class="new"/><circle cx="260.8" cy="196.9" r="1.6" class="screw"/><circle cx="260.8" cy="118.6" r="1.6" class="screw"/><polyline points="217.7,193.3 212.0,193.3 212.0,187.6" class="metal"/><polyline points="269.0,193.3 274.7,193.3 274.7,187.6" class="metal"/><text x="63.8" y="198.6" text-anchor="start" class="cap" font-size="9">BACK</text><text x="284.2" y="198.6" text-anchor="end" class="cap" font-size="9">FRONT</text><line x1="212.0" y1="115.0" x2="212.0" y2="92.0" class="ext"/><line x1="274.7" y1="115.0" x2="274.7" y2="92.0" class="ext"/><line x1="212.0" y1="96.0" x2="274.7" y2="96.0" class="dim" marker-start="url(#porch4-m)" marker-end="url(#porch4-m)"/><rect x="208.5" y="78.5" width="69.6" height="15.0" rx="3" class="pill"/><text x="243.3" y="89.6" text-anchor="middle" class="dimt" font-size="10">rails 33 cm</text><line x1="288.0" y1="210.0" x2="303.4" y2="210.0" class="ext"/><line x1="288.0" y1="115.0" x2="303.4" y2="115.0" class="ext"/><line x1="299.4" y1="210.0" x2="299.4" y2="115.0" class="dim" marker-start="url(#porch4-m)" marker-end="url(#porch4-m)"/><rect x="303.4" y="154.5" width="38.8" height="16.0" rx="3" class="pill"/><text x="322.8" y="166.5" text-anchor="middle" class="dimt" font-size="11">50 cm</text><line x1="212.0" y1="230.9" x2="212.0" y2="259.6" class="ext"/><line x1="222.3" y1="230.9" x2="222.3" y2="259.6" class="ext"/><line x1="212.0" y1="255.6" x2="222.3" y2="255.6" class="dim" marker-start="url(#porch4-m)" marker-end="url(#porch4-m)"/><rect x="204.7" y="258.1" width="24.8" height="15.0" rx="3" class="pill"/><text x="217.1" y="269.2" text-anchor="middle" class="dimt" font-size="10">5.4</text><line x1="212.0" y1="259.4" x2="212.0" y2="290.0" class="ext"/><line x1="288.0" y1="259.4" x2="288.0" y2="290.0" class="ext"/><line x1="212.0" y1="286.0" x2="288.0" y2="286.0" class="dim" marker-start="url(#porch4-m)" marker-end="url(#porch4-m)"/><rect x="215.2" y="288.5" width="69.6" height="15.0" rx="3" class="pill"/><text x="250.0" y="299.6" text-anchor="middle" class="dimt" font-size="10">porch 40 cm</text><line x1="225.9" y1="134.0" x2="193.0" y2="118.8" class="lead"/><circle cx="225.9" cy="134.0" r="2.2" class="leaddot"/><text x="190.0" y="122.8" text-anchor="end" class="note" font-size="10">3 balusters per side,</text><text x="190.0" y="134.8" text-anchor="end" class="note" font-size="10">gaps 5.4 cm</text><line x1="200.6" y1="193.3" x2="200.6" y2="122.2" class="dim" marker-start="url(#porch4-m)" marker-end="url(#porch4-m)"/><rect x="93.4" y="150.2" width="103.2" height="15.0" rx="3" class="pill"/><text x="145.0" y="161.3" text-anchor="middle" class="dimt" font-size="10">balusters 37.4 cm</text></svg><!-- /diagram:porch4 --><figcaption>The left side of the porch seen from the side. The right side is the same, mirrored.</figcaption></figure>
+        <div>
+          <h4><span>9d</span> Close both porch sides</h4>
+          <ol>
+            <li>Measure from the front face of the side wall to the back face of the corner pillar, about 33 cm. Cut four rails to that length.</li>
+            <li>On each side, fix a bottom rail 5 cm above the deck and a top rail with its top at 50 cm. Keep their outer faces flush with the side wall and the pillar. Use glue and an angle bracket at each end.</li>
+            <li>Cut six balusters at 37.4 cm. Fit three per side between the rails, evenly spaced, which leaves four gaps of about 5.4 cm.</li>
+            <li>Screw through the rails into each baluster end and round every top edge.</li>
+          </ol>
+        </div>
+      </div>
+      <label class="done"><input type="checkbox"> Mark step 9 done</label>
+    </div>
+  </div>
+
+  <div class="step" data-step="10">
+    <div class="n">10</div>
+    <div>
+      <h3>Hang the door, finish and furnish</h3>
+      <div class="meta">About 3 hours plus drying time</div>
+      <ol>
+        <li>Cut the door to 40 × 75 cm from 18 mm ply. Cut four pane openings in a 2 × 2 grid in the upper half and glue a single piece of 3 mm acrylic behind them, or leave them open.</li>
+        <li>Hang the door on two hinges with a 5 mm gap all round. Fit a knob and a magnetic catch. Fit a soft finger guard strip on the hinge side.</li>
+        <li>Sand everything to 120 grit, then 180 on edges children touch. Round all corners.</li>
+        <li>Paint trim, posts, railings and the window frame white. Oil or stain the walls, floor and door with a child-safe exterior finish. Two coats, 24 hours apart.</li>
+        <li>Add the battery lantern beside the door, interior shelves from plywood offcuts, and a doormat.</li>
+        <li>Final check: push on every wall and post. Nothing should rack or wobble. Anchor the deck to the pavers or ground with brackets or pegs.</li>
+      </ol>
+      <label class="done"><input type="checkbox"> Mark step 10 done</label>
+    </div>
+  </div>
+</section>
+
+<section id="safety">
+  <h2>6. Safety checklist</h2>
+  <div class="card">
+    <ul class="plain">
+      <li><b>Gaps:</b> any opening between railings, balusters or under rails must be under 9 cm, or over 23 cm, to avoid head entrapment.</li>
+      <li><b>Edges and fixings:</b> round all edges, countersink every screw, and check that no screw tips protrude inside or out.</li>
+      <li><b>Door:</b> no lock or latch that can trap a child inside. Use a magnetic catch and a finger guard.</li>
+      <li><b>Glazing:</b> use acrylic, never glass. The serving window stays open.</li>
+      <li><b>Finishes:</b> choose paint and stain labelled safe for children's toys or furniture, and let them cure fully before use.</li>
+      <li><b>Stability:</b> anchor the base and keep the playhouse away from slopes, fences children could climb over, and anything they could jump onto from the roof.</li>
+      <li><b>Ground:</b> grass, bark or rubber mats around the porch soften falls from the 15 cm deck step.</li>
+      <li><b>Maintenance:</b> each spring, check for splinters, loose railings and soft wood, and recoat the finish.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Dimensions follow the annotated reference drawing. Nominal lumber sizes are 2×2 = 38 × 38 mm and 2×4 = 38 × 89 mm. Measure your actual timber before cutting.</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY='playhouse-build-progress';
+  var boxes=document.querySelectorAll('.step input[type=checkbox]');
+  var saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ saved={}; }
+  function render(){
+    var done=0;
+    boxes.forEach(function(b){
+      var step=b.closest('.step');
+      step.classList.toggle('is-done', b.checked);
+      if(b.checked) done++;
+    });
+    document.getElementById('ptext').textContent=done+' of '+boxes.length+' steps done';
+    document.getElementById('pbar').style.width=(100*done/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    var id=b.closest('.step').dataset.step;
+    b.checked=!!saved[id];
+    b.addEventListener('change',function(){
+      saved[id]=b.checked;
+      try{ localStorage.setItem(KEY, JSON.stringify(saved)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
