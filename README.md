@@ -15,4 +15,8 @@ A plan for a 120 × 120 cm wooden kids playhouse with an enclosed room, a servin
 
 ## Build guide
 
-Open [build-guide.html](build-guide.html) in a browser. It has the dimensions, materials, cut list and tools, then ten illustrated build steps for the base, walls, porch pillars, roof and railings, and a safety checklist.
+**[Open the build guide online](https://vgdagpin.github.io/kids-house/build-guide)**
+
+It has the dimensions, materials, cut list and tools, then ten illustrated build steps for the base, walls, porch pillars, roof and railings, and a safety checklist.
+
+You can also open [build-guide.html](build-guide.html) directly in a browser, or print [build-guide.pdf](build-guide.pdf).

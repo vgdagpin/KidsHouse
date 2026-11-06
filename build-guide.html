@@ -72,6 +72,7 @@
   ul.plain li{margin:4px 0}
   footer{margin-top:48px;color:var(--muted);font-size:.85rem}
 
+
   /* ---- step diagrams ---- */
   :root{
     --d-wood:#e7cfa3; --d-wood-line:#8a6a3c; --d-ply:#f1e2c2; --d-new:#f6a56f; --d-new-line:#b8400a;
@@ -177,6 +178,37 @@
   svg.dg .lamp{fill:#ffd27a;stroke:var(--d-felt);stroke-width:1.5}
   svg.dg .grass{fill:var(--d-grass)}
   svg.dg .feltcap{fill:none;stroke:var(--d-felt);stroke-width:3;stroke-linejoin:round}
+  /* ---- printing ---- */
+  @page{size:A4;margin:14mm 12mm}
+  @media print{
+    :root,:root[data-theme="dark"],:root:not([data-theme="light"]){color-scheme:light}
+    html{scroll-behavior:auto}
+    body{background:#fff;font-size:10.5pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .wrap{max-width:none;padding:0}
+    header.hero{padding-top:0}
+    nav.toc,.progress,.jump,label.done{display:none!important}
+    .card,.step,.fact,.sub figure,.view-in{box-shadow:none}
+    section{margin-top:18px}
+    h2{break-after:avoid}
+    h3,h4{break-after:avoid}
+    tr,.fact,.tip,.warn{break-inside:avoid}
+    .sub,.view-main,.view-pair>figure{break-inside:avoid}
+    .step{break-inside:auto;padding:12px}
+    .step .n{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .views{break-after:page}
+    #steps,#safety{break-before:page}
+    .sub{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)!important;gap:12px}
+    .step{grid-template-columns:30px 1fr!important;gap:8px}
+    .step .n{width:28px;height:28px;font-size:.95rem}
+    .sub figure{padding:4px}
+    .sub ol{padding-left:16px}
+    .sub li{font-size:9.5pt;margin:3px 0}
+    .sub figure{max-width:none}
+    .view-pair{grid-template-columns:1fr 1fr!important}
+    .view-main .view-in{max-width:150mm;margin:0 auto}
+    .view-pair .view-in{max-width:none}
+    a{color:inherit;text-decoration:none}
+  }
 </style>
 </head>
 <body>
